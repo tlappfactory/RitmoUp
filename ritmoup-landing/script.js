@@ -51,9 +51,6 @@ function setupCTA() {
         if (navComecar) { navComecar.textContent = 'Acessar App'; navComecar.href = PWA_URL; }
         if (navEntrar) navEntrar.href = PWA_URL;
 
-        // Mostra dica de instalação PWA
-        showIosHint();
-
     } else {
         // Desktop → cadastro web
         if (ctaLabel) ctaLabel.textContent = 'Começar Gratuitamente';
@@ -62,15 +59,6 @@ function setupCTA() {
     }
 }
 
-// Exibe a dica de PWA para usuários iOS com animação suave
-function showIosHint() {
-    const hint = document.getElementById('ios-hint');
-    if (!hint) return;
-    hint.style.display = 'flex';
-    // Força reflow para a animação funcionar
-    void hint.offsetHeight;
-    setTimeout(() => hint.classList.add('visible'), 50);
-}
 
 // Navbar: fundo sólido ao rolar
 function setupNavbar() {

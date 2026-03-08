@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "ritmoup-b432b"
-  }
+  },
+  "targets": {
+    "ritmoup-b432b": {
+      "hosting": {
+        "app": [
+          "ritmoup-app"
+        ],
+        "landing": [
+          "ritmoup-landing"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

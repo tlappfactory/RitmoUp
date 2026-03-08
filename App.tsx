@@ -5,7 +5,7 @@ import { AuthProvider, useAuth } from './AuthContext';
 import { ToastProvider } from './ToastContext';
 import { ThemeProvider } from './ThemeContext';
 import { Login, RegisterSelection, RegisterForm } from './pages/AuthPages';
-import { WelcomePage, PricingPage } from './pages/PublicPages';
+import { PricingPage } from './pages/PublicPages';
 import { SeedPage } from './pages/SeedPage';
 import { StudentDashboard, StudentWorkouts, StudentProfile, WorkoutSession, StudentProgress, StudentSchedule } from './pages/StudentPages';
 import { AnalyticsPage } from './pages/AnalyticsPage';
@@ -81,11 +81,10 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<PublicRoute><WelcomePage /></PublicRoute>} />
+      <Route path="/" element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><RegisterSelection /></PublicRoute>} />
-      {/* Route path="/welcome" is now redundant but kept for compatibility if needed */}
-      <Route path="/welcome" element={<PublicRoute><WelcomePage /></PublicRoute>} />
+      <Route path="/welcome" element={<Navigate to="/login" replace />} />
       <Route path="/pricing" element={<PricingPage />} />
       <Route path="/pricing" element={<PricingPage />} />
       <Route path="/register/form" element={<PublicRoute><RegisterForm /></PublicRoute>} />

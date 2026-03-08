@@ -8,6 +8,42 @@ import { BackButton } from '../components/BackButton';
 import { useToast } from '../ToastContext';
 import { paymentService } from '../services/paymentService';
 
+const IosPWAPrompt = () => {
+  const [show, setShow] = useState(false);
+
+  React.useEffect(() => {
+    // Detect iOS
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    // Detect standalone
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
+
+    if (isIos && !isStandalone) {
+      setShow(true);
+    }
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up w-[90%] max-w-sm">
+      <div className="bg-[#1e293b]/90 border border-white/10 backdrop-blur-xl p-4 rounded-2xl shadow-2xl flex items-center gap-4">
+        <div className="p-2 bg-white/5 rounded-xl shrink-0">
+          <img src="/favicon.png" alt="App" className="w-8 h-8 rounded-lg" />
+        </div>
+        <div className="flex-1">
+          <p className="text-white text-sm font-medium">Instale o aplicativo</p>
+          <p className="text-gray-400 text-xs mt-1">
+            Toque no menu (<strong>três pontos</strong>) no canto inferior direito, selecione <strong>Compartilhar</strong> e depois <strong>Adicionar à Tela de Início</strong>.
+          </p>
+        </div>
+        <button onClick={() => setShow(false)} className="p-2 text-gray-400 hover:text-white shrink-0">
+          <span className="material-symbols-outlined text-lg">close</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export const Login = () => {
   const navigate = useNavigate();
   const { login, resetPassword, loginWithGoogle } = useAuth();
@@ -177,75 +213,13 @@ export const Login = () => {
         )}
 
         <p className="text-center text-sm text-gray-500 mt-2">
-          Não tem uma conta? <button className="text-[#00ff88] font-bold hover:underline" onClick={() => navigate('/welcome')}>Cadastre-se</button>
+          Não tem uma conta? <button className="text-[#00ff88] font-bold hover:underline" onClick={() => navigate('/register')}>Cadastre-se</button>
         </p>
       </div>
+      <IosPWAPrompt />
     </div>
   );
 };
-
-export const Welcome = () => {
-  const navigate = useNavigate();
-
-  return (
-    <div className="min-h-screen flex flex-col p-6 bg-[#0f172a] text-white">
-      <div className="flex-1 flex flex-col items-center text-center justify-center max-w-md mx-auto w-full space-y-8">
-        <div className="space-y-4">
-          <div className="flex justify-center">
-            <img src="/favicon.png" alt="Logo" className="w-20 h-20" />
-          </div>
-          <h1 className="text-4xl font-bold">Bem-vindo ao RitmoUp</h1>
-          <p className="text-gray-500 text-lg">
-            A plataforma completa que conecta Personal Trainers e Alunos para resultados incríveis.
-          </p>
-        </div>
-
-        <div className="w-full space-y-4">
-          <div className="p-4 rounded-2xl bg-[#1e293b] border border-white/5 shadow-sm flex items-start gap-4 text-left">
-            <div className="p-2 rounded-xl bg-blue-900/30 text-blue-400">
-              <span className="material-symbols-outlined">fitness_center</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-white">Treinos Personalizados</h3>
-              <p className="text-sm text-gray-400">Receba ou crie treinos adaptados aos seus objetivos.</p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#1e293b] border border-white/5 shadow-sm flex items-start gap-4 text-left">
-            <div className="p-2 rounded-xl bg-purple-900/30 text-purple-400">
-              <span className="material-symbols-outlined">monitoring</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-white">Acompanhe seu Progresso</h3>
-              <p className="text-sm text-gray-400">Visualize sua evolução com gráficos detalhados.</p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#1e293b] border border-white/5 shadow-sm flex items-start gap-4 text-left">
-            <div className="p-2 rounded-xl bg-orange-900/30 text-orange-400">
-              <span className="material-symbols-outlined">payments</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-white">Gestão Facilitada</h3>
-              <p className="text-sm text-gray-400">Organize alunos, agenda e financeiro em um só lugar.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full max-w-md mx-auto pt-8">
-        <button onClick={() => navigate('/register')} className="w-full bg-[#00ff88] text-[#0f172a] font-bold rounded-xl py-3 hover:bg-[#00cc6a] transition-all shadow-lg hover:shadow-[#00ff88]/20 active:scale-95">
-          Começar Agora
-        </button>
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Já tem uma conta? <button className="text-[#00ff88] font-bold hover:underline" onClick={() => navigate('/')}>Entrar</button>
-        </p>
-      </div>
-    </div>
-  );
-};
-
-
 
 
 export const RegisterSelection = () => {

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>RitmoUp — Seu Treino, Seu Ritmo</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#00ff88',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .pt-safe {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .animate-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-hidden.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-black text-white selection:bg-[#00ff88] selection:text-black overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar"
+        class="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl pt-safe transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="relative">
+                    <img src="favicon.png" alt="Logo" class="w-8 h-8 transition-transform group-hover:rotate-12" />
+                    <div
+                        class="absolute inset-0 bg-[#00ff88]/50 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                </div>
+                <span class="text-2xl font-bold tracking-tight">Ritmo<span class="text-[#00ff88]">Up</span></span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#funcionalidades"
+                    class="text-sm font-medium text-gray-300 hover:text-white transition-colors hidden sm:block">Recursos</a>
+                <a href="#" id="nav-entrar"
+                    class="px-5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-bold transition-all hover:scale-105">
+                    Entrar
+                </a>
+                <a href="#" id="nav-comecar"
+                    class="px-5 py-2 rounded-full bg-[#00ff88] text-black text-sm font-bold hover:bg-[#00cc6a] transition-all hover:shadow-[0_0_20px_rgba(0,255,136,0.3)] hover:scale-105 hidden sm:block delay-150">
+                    Começar
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-36 pb-20 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
+        <!-- Abstract Background Elements -->
+        <div
+            class="hero-glow absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#00ff88]/20 blur-[120px] rounded-full opacity-30 pointer-events-none transition-transform duration-700 ease-out">
+        </div>
+        <div
+            class="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-500/10 blur-[100px] rounded-full opacity-30 pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10" id="inicio">
+            <div class="text-center lg:text-left">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-[#00ff88] mb-6 animate-hidden">
+                    <span class="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse"></span>
+                    A Ferramenta para Personais de Elite
+                </div>
+
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-gray-500 animate-hidden"
+                    style="transition-delay: 0.1s">
+                    Sua Consultoria <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff88] to-emerald-400 relative">
+                        Em Outro Nível
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-[#00ff88] opacity-50" viewBox="0 0 100 10"
+                            preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                        </svg>
+                    </span>
+                </h1>
+
+                <p class="text-xl text-gray-400 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-hidden"
+                    style="transition-delay: 0.2s">
+                    Centralize seus alunos, automatize treinos com IA e entregue uma experiência premium que justifica
+                    seu valor. Pare de usar planilhas e WhatsApp.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start animate-hidden"
+                    style="transition-delay: 0.3s">
+                    <a href="#" id="cta-primary"
+                        class="w-full sm:w-auto px-8 py-4 rounded-full bg-[#00ff88] text-black font-bold text-lg hover:bg-[#00cc6a] transition-all hover:shadow-[0_0_30px_rgba(0,255,136,0.4)] hover:-translate-y-1 relative overflow-hidden group flex items-center justify-center gap-2">
+                        <span id="cta-label">Começar Gratuitamente</span>
+                        <span
+                            class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+                    </a>
+                </div>
+
+                <div class="mt-12 flex items-center justify-center lg:justify-start gap-8 text-sm font-medium text-gray-500 animate-hidden"
+                    style="transition-delay: 0.4s">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[#00ff88]">check_circle</span> 7 dias grátis Pro
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[#00ff88]">check_circle</span> App para você e seus
+                        alunos
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Visual - Business Style -->
+            <div class="relative lg:h-[600px] flex items-center justify-center animate-hidden"
+                style="transition-delay: 0.4s">
+                <div class="relative w-full max-w-lg aspect-square">
+                    <!-- Decorative Circles -->
+                    <div class="absolute inset-0 border border-white/5 rounded-full animate-[spin_10s_linear_infinite]">
+                    </div>
+                    <div
+                        class="absolute inset-12 border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]">
+                    </div>
+
+                    <!-- Glass Mockup Card -->
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 bg-[#1e293b] border border-white/10 rounded-3xl p-6 shadow-2xl backdrop-blur-md rotate-[-5deg] hover:rotate-0 transition-all duration-500 group">
+                        <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+                            <h3 class="font-bold text-white">Resumo Financeiro</h3>
+                            <span class="text-xs font-bold bg-green-500/20 text-green-500 px-2 py-1 rounded">Este
+                                Mês</span>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-gray-400 text-xs uppercase font-bold mb-1">Receita Confirmada</p>
+                                <p class="text-3xl font-bold text-white">R$ 12.450,00</p>
+                                <div class="h-1.5 w-full bg-gray-700 rounded-full mt-2">
+                                    <div class="h-1.5 rounded-full bg-[#00ff88] w-[85%]"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                                    <span class="material-symbols-outlined text-purple-400 mb-2">group</span>
+                                    <p class="text-2xl font-bold text-white">42</p>
+                                    <p class="text-[10px] text-gray-400">Alunos Ativos</p>
+                                </div>
+                                <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                                    <span class="material-symbols-outlined text-blue-400 mb-2">event_available</span>
+                                    <p class="text-2xl font-bold text-white">18</p>
+                                    <p class="text-[10px] text-gray-400">Aulas Hoje</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Stats Card -->
+                    <div
+                        class="absolute -bottom-4 right-10 bg-black/80 backdrop-blur-md border border-white/10 p-4 rounded-2xl shadow-xl animate-bounce-slow">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-blue-500/20 text-blue-500 rounded-lg">
+                                <span class="material-symbols-outlined text-xl">auto_fix_high</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">Tempo Economizado</p>
+                                <p class="text-lg font-bold text-white">~15h / semana</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Users Avatar Group -->
+                    <div class="absolute top-10 -left-4 bg-black/80 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full shadow-xl animate-float"
+                        style="animation-delay: 1s">
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-3">
+                                <img src="https://i.pravatar.cc/100?u=21"
+                                    class="w-8 h-8 rounded-full border-2 border-black" alt="user" />
+                                <img src="https://i.pravatar.cc/100?u=22"
+                                    class="w-8 h-8 rounded-full border-2 border-black" alt="user" />
+                                <img src="https://i.pravatar.cc/100?u=23"
+                                    class="w-8 h-8 rounded-full border-2 border-black" alt="user" />
+                            </div>
+                            <span class="text-xs font-bold text-white">Novos Alunos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Showcase Section -->
+    <section id="funcionalidades" class="py-24 px-6 relative">
+        <div class="absolute inset-0 bg-[#1e293b]/50 skew-y-1 transform origin-top-left -z-10"></div>
+
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-20 animate-hidden">
+                <h2 class="text-3xl lg:text-5xl font-bold mb-6">Sua consultoria merece <span class="text-[#00ff88]">mais
+                        que planilhas</span></h2>
+                <p class="text-gray-400 text-lg">Substitua o caos de PDFs e Whatsapp por uma plataforma que trabalha por
+                    você.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-3xl group md:col-span-2 relative overflow-hidden bg-[#1e293b]/50 border border-white/5 backdrop-blur-xl animate-hidden"
+                    style="transition-delay: 0.1s">
+                    <div class="absolute top-0 right-0 p-10 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="material-symbols-outlined text-9xl">monitoring</span>
+                    </div>
+                    <div class="relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl">smart_display</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Painel de Controle Centralizado</h3>
+                        <p class="text-gray-400 leading-relaxed max-w-md">Gerencie 10, 50 ou 100 alunos sem perder o
+                            controle. Saiba quem treinou, quem faltou e quem precisa de ajuste na carga, tudo em uma
+                            única tela.</p>
+                    </div>
+                    <div
+                        class="absolute -bottom-10 right-0 w-2/3 h-40 bg-gradient-to-t from-blue-500/10 to-transparent blur-2xl">
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-3xl group relative overflow-hidden bg-gradient-to-b from-white/5 to-transparent border border-white/5 backdrop-blur-xl animate-hidden"
+                    style="transition-delay: 0.2s">
+                    <div class="relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-[#00ff88]/10 text-[#00ff88] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl">bolt</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">IA que Economiza Tempo</h3>
+                        <p class="text-gray-400 leading-relaxed">Crie periodizações completas em segundos, não horas.
+                            Nossa IA sugere treinos baseados no perfil do aluno.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-3xl group relative overflow-hidden bg-gradient-to-b from-white/5 to-transparent border border-white/5 backdrop-blur-xl animate-hidden"
+                    style="transition-delay: 0.3s">
+                    <div class="relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl">payments</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Financeiro Profissional</h3>
+                        <p class="text-gray-400 leading-relaxed">Automatize cobranças e lembretes. Pare de cobrar "no
+                            boca a boca" e profissionalize sua renda.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="p-8 rounded-3xl group md:col-span-2 relative overflow-hidden bg-[#1e293b]/50 border border-white/5 backdrop-blur-xl animate-hidden"
+                    style="transition-delay: 0.4s">
+                    <div class="absolute top-0 right-0 p-10 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="material-symbols-outlined text-9xl">phone_iphone</span>
+                    </div>
+                    <div class="relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl">app_shortcut</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">App Premium com Sua Marca</h3>
+                        <p class="text-gray-400 leading-relaxed max-w-md">Entregue valor real. Seus alunos terão um app
+                            moderno para acessar treinos, vídeos demonstrativos e registrar progresso.</p>
+                    </div>
+                    <div
+                        class="absolute -bottom-10 right-0 w-2/3 h-40 bg-gradient-to-t from-amber-500/10 to-transparent blur-2xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats/Social Proof -->
+    <section class="py-20 border-y border-white/5 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center animate-hidden">
+            <div>
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">+15h</p>
+                <p class="text-gray-500 font-medium">Economizadas / Semana</p>
+            </div>
+            <div>
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">3x</p>
+                <p class="text-gray-500 font-medium">Mais Alunos Atendidos</p>
+            </div>
+            <div>
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">98%</p>
+                <p class="text-gray-500 font-medium">Retenção de Alunos</p>
+            </div>
+            <div>
+                <p class="text-4xl lg:text-5xl font-bold text-white mb-2">Zero</p>
+                <p class="text-gray-500 font-medium">Inadimplência</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-6 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#00ff88]/5 to-transparent pointer-events-none"></div>
+        <div class="max-w-3xl mx-auto relative z-10 animate-hidden">
+            <h2 class="text-4xl lg:text-6xl font-bold mb-8">Pronto para evoluir?</h2>
+            <p class="text-xl text-gray-400 mb-12">Junte-se a milhares de profissionais que já modernizaram sua
+                consultoria.</p>
+            <a href="#" id="cta-final"
+                class="inline-block px-10 py-5 rounded-full bg-[#00ff88] text-black font-bold text-xl hover:bg-[#00cc6a] transition-all hover:scale-105 shadow-[0_0_40px_rgba(0,255,136,0.3)]">
+                Criar Conta Grátis
+            </a>
+            <p class="mt-6 text-sm text-gray-500">Sem cartão de crédito • Cancelamento a qualquer momento</p>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 text-center text-gray-600 text-sm">
+        <p>&copy; 2026 RitmoUp. Todos os direitos reservados.</p>
+    </footer>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
