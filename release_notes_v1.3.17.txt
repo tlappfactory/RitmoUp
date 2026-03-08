@@ -1,0 +1,9 @@
+Versão 1.3.17
+
+Novidades:
+- Correção crítica: O microfone agora utiliza o diálogo nativo do sistema para evitar travamentos em alguns dispositivos Android.
+- Melhorias na estabilidade do reconhecimento de voz.
+
+Observações Técnicas:
+- Atualização do plugin de speech-recognition.
+- Mudança para modo popup: true.

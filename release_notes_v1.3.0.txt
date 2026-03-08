@@ -1,0 +1,17 @@
+
+# RitmoUp v1.3.0 - Notas de Atualização
+
+Temos novidades incríveis para turbinar sua experiência na comunidade!
+
+## 🚀 Novidades
+
+*   **Ranking da Tribo & Global**: Agora você pode ver sua posição no ranking geral e entre os alunos do seu treinador. Quem será o número 1? 🏆
+*   **Gamificação Social**: Suas conquistas e novos níveis agora são celebrados automaticamente no Feed da Tribo! Mostre sua evolução!
+*   **Proteção Automática**: Implementamos um sistema inteligente para garantir que a comunidade continue sendo um ambiente seguro, respeitoso e livre de ofensas.
+
+## ✨ Melhorias
+
+*   **Feed mais limpo**: Ajustes visuais no ranking e nas postagens.
+*   **Correções**: Corrigimos um problema que impedia alguns usuários de criar postagens com fotos.
+
+Atualize agora e borá treinar! 💪

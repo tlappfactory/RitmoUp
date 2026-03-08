@@ -1,0 +1,6 @@
+Versão 1.4.4
+
+Novidades:
+- Implementação de filtros na busca de treinadores (Especialidade, Gênero, Avaliação Mínima).
+- Suporte a layout "Edge-to-Edge" no Android 15+ (barra de status transparente).
+- Correção na interatividade dos botões de ação na tela "Encontrar Personal".

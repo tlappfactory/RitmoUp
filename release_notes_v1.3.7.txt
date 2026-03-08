@@ -1,0 +1,7 @@
+Versão 1.3.7
+
+Novidades:
+- Correção no check-out para Personal Trainers (Teste Grátis de 7 dias).
+- Correção no Áudio dos Treinos (Voz da IA agora funciona corretamente).
+- Correção no layout do comando de voz ao criar treinos.
+- Melhoria na estabilidade do reconhecimento de fala.

@@ -1,0 +1,15 @@
+
+# RitmoUp v1.3.2 - Notas de Atualização
+
+Mais melhorias para facilitar a vida do treinador e dos alunos!
+
+## 🚀 Novidades
+
+*   **Catálogo de Exercícios**: Ampliação com mais de 20 novos exercícios, além de limpeza e organização, removendo duplicados e tags antigas.
+*   **Vídeos nos Treinos**: Correção na exibição e inserção de links de vídeo pelos treinadores.
+
+## ✨ Melhorias
+
+*   **Ajustes Gerais**: Melhorias gerais na exibição e reprodução de vídeos.
+
+Atualize agora e borá treinar! 💪

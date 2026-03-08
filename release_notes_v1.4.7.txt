@@ -1,0 +1,16 @@
+
+# RitmoUp v1.4.7 - Notas de Atualização
+
+Estamos evoluindo para oferecer a melhor experiência de treino possível! Confira as novidades desta versão:
+
+## 🚀 Novidades
+
+*   **Leitor de QR Code**: Agora você pode se conectar ao seu treinador instantaneamente usando a câmera do app. Basta escanear o código! 📷
+*   **Mapa Muscular Avançado**: Visualização corporal completamente renovada! Agora com detalhes anatômicos realistas, incluindo mãos, pés e variações específicas para homens e mulheres. 💪
+
+## ✨ Melhorias
+
+*   **Visualização Imersiva**: Ajustes modernos (Edge-to-Edge) para aproveitar melhor a tela do seu celular, especialmente em novos Androids.
+*   **Performance**: Otimizações nos bastidores para o app rodar mais liso.
+
+Atualize agora e borá treinar! 🔥

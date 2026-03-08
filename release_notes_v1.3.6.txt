@@ -1,0 +1,10 @@
+Versão 1.3.6
+
+Novidades:
+- Melhoria no sistema de pagamentos: agora o pagamento da assinatura é feito diretamente no aplicativo, proporcionando uma experiência mais rápida e segura.
+- Correção no fluxo de cadastro de personal trainers.
+- Atualizações de segurança e performance.
+
+Detalhes Técnicos:
+- Integração nativa com Stripe Payment Sheet.
+- Atualização do plugin @capacitor-community/stripe.

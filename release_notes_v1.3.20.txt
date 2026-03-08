@@ -1,0 +1,23 @@
+# Notas da Versão 1.3.20
+
+## 🔧 Diagnóstico do Microfone
+
+- **Sistema de Diagnóstico Visual:** Adicionado painel de diagnóstico acessível pelo botão 🔧 ao lado do microfone na tela "Criar Novo Treino". Mostra logs detalhados de cada etapa do reconhecimento de voz para identificar a causa do crash no Android.
+
+- **Fallback Automático Nativo → Web:** Se o plugin nativo de reconhecimento de voz falhar (possível incompatibilidade Capacitor v7 plugin / v8 core), o app tenta automaticamente usar a Web Speech API do navegador.
+
+- **Logging Detalhado:** Cada etapa (disponibilidade, permissões, início, resultado, erro) é logada com timestamps para análise precisa.
+
+## 📋 Como Usar o Diagnóstico
+
+1. Abrir "Criar Novo Treino"
+2. Clicar no 🔧 ao lado do microfone
+3. Clicar no microfone para testar
+4. Ver os logs no painel
+5. Usar "Copiar Logs" para compartilhar
+
+## 📦 Detalhes Técnicos
+
+- Hook `useSpeechRecognition` reescrito com logging e fallback
+- Novo componente `MicDiagnosticPanel` para debug visual
+- Atualização do Code Version para 33

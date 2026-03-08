@@ -1,0 +1,10 @@
+# Notas da Versão 1.3.18
+
+## 🐛 Correções de Bugs (Crítico)
+
+- **Correção de Crash no Microfone do Assistente:** Resolvido o problema que fazia o aplicativo fechar inesperadamente ao tentar usar o comando de voz no Android. A funcionalidade agora utiliza a tecnologia nativa do sistema, garantindo estabilidade e compatibilidade.
+
+## 📦 Detalhes Técnicos
+
+- Substituição do plugin de reconhecimento de voz instável pela Web Speech API nativa.
+- Atualização do Code Version para 31.

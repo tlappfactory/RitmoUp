@@ -1,0 +1,9 @@
+Versão 1.3.3 - Release Notes
+
+Ajustes e Melhorias:
+1. Unificação do Catálogo de Exercícios: Agora a versão mobile e web usam o mesmo componente, garantindo paridade de recursos.
+2. Visibilidade de Ícones: O ícone de "olho" (visualização) agora é sempre visível em dispositivos móveis.
+3. Fix Zoom de Foto: Corrigido problema no mobile onde clicar na foto do exercício não a ampliava.
+4. Restrição de Edição: O catálogo agora é apenas leitura para Personal Trainers para evitar edições acidentais no catálogo base.
+5. Redirecionamento Stripe (Mobile): Implementado suporte a Deep Linking (ritmoup://) para que o app abra automaticamente no Dashboard do Trainer após o pagamento no Stripe.
+6. Remoção de Botões: Removido o botão de "+ Novo Exercício" do catálogo geral para simplificação.

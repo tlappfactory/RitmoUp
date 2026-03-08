@@ -1,0 +1,11 @@
+Novidades da versão 1.2.7:
+
+✨ **Melhorias de UI**
+- Corrigido o truncamento do botão "Comunidade" na barra de navegação inferior em dispositivos móveis.
+- Otimização do espaço na navegação móvel para melhor legibilidade.
+
+🚀 **Recursos Recentes (v1.2.6)**
+- Acesso à Comunidade integrada!
+- Ajustes de contraste e melhorias de performance.
+
+Obrigado por usar o RitmoUp!

@@ -1,0 +1,11 @@
+# Notas de Lançamento - Versão 1.4.5
+
+## 🎨 Interface e Experiência do Usuário (UI/UX)
+- **Correção de Navegação:** Resolvido o problema de botões "Voltar" duplicados nas telas de perfil (Aluno e Treinador) em dispositivos móveis.
+- **Melhoria na Tela de Treino:** Ajustado o espaçamento superior na tela de execução de treino para evitar sobreposição com a barra de status do dispositivo (relógio, bateria).
+
+## 🛠️ Funcionalidades
+- **Simplificação do Perfil do Aluno:** O recurso de Chat com IA (Coach IA) foi desabilitado para simplificar a interface e focar na experiência central de treino e progresso.
+
+## 📦 Sistema
+- Atualização de versão para **1.4.5** (Código da versão: 39).

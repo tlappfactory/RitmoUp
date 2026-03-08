@@ -1,0 +1,5 @@
+Versão 1.3.12
+- Novo modo Tela Cheia: O aplicativo agora aproveita todo o espaço da tela para uma experiência mais imersiva.
+- Correção na Tela de Abertura: A imagem da splash screen agora é exibida corretamente, sem distorções.
+- Correção no Assistente de Treino (IA): Resolvido o problema onde o aplicativo fechava ao tentar usar o microfone para comandos de voz.
+- Melhorias de compatibilidade com Android 14 e serviços de reconhecimento de fala.

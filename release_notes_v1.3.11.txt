@@ -1,0 +1,4 @@
+Versão 1.3.11
+- Recurso "Pull to Refresh": Agora é possível puxar a tela para baixo no topo do dashboard para forçar a atualização do aplicativo e recarregar os recursos mais recentes.
+- Correção na exibição da versão do aplicativo: O número da versão agora é lido corretamente do sistema, resolvendo o problema onde versões antigas eram exibidas incorretamente.
+- Melhorias gerais de estabilidade e performance.

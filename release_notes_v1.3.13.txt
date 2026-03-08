@@ -1,0 +1,4 @@
+Versão 1.3.13
+- Correção Crítica: Resolvido o fechamento inesperado do app ao utilizar o microfone no Assistente de Treino (IA).
+- Melhoria de UI: Removida a barra superior nativa (faixa preta) que aparecia indevidamente acima do cabeçalho nas telas de login e planos.
+- Estabilidade: Melhorias na inicialização de plugins nativos e compatibilidade com Android 14.

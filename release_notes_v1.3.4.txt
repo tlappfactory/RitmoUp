@@ -1,0 +1,19 @@
+Versão 1.3.4
+Data: 29/01/2026
+
+Novidades e Melhorias:
+
+1. **Configurações e Diagnóstico:**
+   - **Exibição Dinâmica da Versão:** A tela de configurações agora exibe a versão exata do aplicativo instalada (v1.3.4), facilitando a verificação de atualizações.
+   - **Botão "Recarregar App":** Adicionado um botão na tela de Configurações para forçar o recarregamento da aplicação, útil para limpar caches e resolver problemas de interface sem precisar reinstalar.
+
+2. **Correções Mobile (App Aluno):**
+   - **Reprodução de Vídeos:** Corrigido o problema onde vídeos de exercícios não abriam corretamente. Agora utilizam o navegador nativo do celular para garantir compatibilidade.
+   - **Botões de Vídeo:** Adicionados botões explícitos "Vídeo" e "Vídeo de Execução" nos detalhes do treino para facilitar o acesso.
+
+3. **Correções Mobile (App Personal):**
+   - **Catálogo de Exercícios:** Removida a tag antiga "VÍDEO" que aparecia indevidamente nos cards.
+   - **Interface Limpa:** Removidos botões de edição ("Novo Exercício") que não deveriam aparecer na versão mobile, garantindo uma experiência de visualização mais limpa e consistente.
+
+4. **Geral:**
+   - Melhorias de estabilidade e correções de layout.

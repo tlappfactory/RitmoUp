@@ -1,0 +1,5 @@
+Versão 1.3.16
+
+Novidades e Correções:
+- Correção Crítica: Resolvido problema que causava fechamento do app ao tentar utilizar o microfone no Assistente RitmoAI (Crash Fix).
+- Melhoria: Adicionadas verificações de permissão mais robustas para evitar erros futuros com recursos de áudio.

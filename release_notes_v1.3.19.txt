@@ -1,0 +1,14 @@
+# Notas da Versão 1.3.19
+
+## 🎤 Melhorias
+
+- **Assistente de Voz IA Funcional no Mobile:** Implementada solução definitiva para o reconhecimento de voz no Android. Agora o microfone abre o diálogo nativo do Google Speech, garantindo que a funcionalidade funcione de forma estável e confiável no celular.
+
+## 🐛 Correções de Bugs
+
+- **Botão do microfone não aparecia no mobile:** Corrigido o problema onde o botão de comando de voz nunca era exibido na versão Android do app. A causa era o uso de uma API incompatível com o WebView do Android.
+
+## 📦 Detalhes Técnicos
+
+- Implementação híbrida: plugin nativo com popup no Android, Web Speech API no desktop.
+- Atualização do Code Version para 32.

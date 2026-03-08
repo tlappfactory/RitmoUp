@@ -1,0 +1,106 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isTrainerSelfAssigning() {
+      // 1. Must be authenticated
+      // 2. Must be only changing the trainerId field
+      // 3. Must be assigning THEMSELVES (request.auth.uid) as the trainerId
+      // 4. Must officially be a TRAINER in their own profile
+      
+      let isTrainer = get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'TRAINER';
+      let onlyTrainerIdChanged = request.resource.data.diff(resource.data).affectedKeys().hasOnly(['trainerId']);
+      let assigningSelf = request.resource.data.trainerId == request.auth.uid;
+      
+      return isAuthenticated() && onlyTrainerIdChanged && assigningSelf && isTrainer;
+    }
+
+    // Users Collection (Profiles)
+    match /users/{userId} {
+      allow read: if isAuthenticated(); // Allow reading profiles (needed for trainer/student relationships)
+      allow write: if isOwner(userId) || isTrainerSelfAssigning(); // Owner edits profile OR Trainer connects
+      
+      // Allow access to subcollections (like weight_history)
+      match /{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Students Collection (Manual entries by trainers)
+    match /students/{studentId} {
+      allow read, write: if isAuthenticated(); // Broad for now as logic is complex (manual vs app users)
+      
+      match /progress/{entryId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    // Workouts Collection
+    match /workouts/{workoutId} {
+      // Allow if user is the student OR the trainer acting on it
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Workout History
+    match /workout_history/{historyId} {
+        allow read, write: if isAuthenticated();
+    }
+
+    // Exercises Catalog
+    match /exercises/{exerciseId} {
+      allow read: if isAuthenticated();
+      // Allow seeding by any authenticated user for now (or restrict to admin later)
+      allow write: if isAuthenticated(); 
+    }
+
+    // Trainer Custom Videos
+    match /trainer_videos/{videoId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated(); // Trainers need to write
+    }
+
+    // Connection Requests
+    match /connection_requests/{requestId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Appointments (Agenda)
+    match /appointments/{appointmentId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Reschedule Requests
+    match /reschedule_requests/{requestId} {
+       allow read, write: if isAuthenticated();
+    }
+    
+    // Class Requests
+    match /class_requests/{requestId} {
+       allow read, write: if isAuthenticated();
+    }
+
+    // Posts Collection (Community)
+    match /posts/{postId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Financial Records
+    match /financialRecords/{recordId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Fallback for other collections
+    match /{document=**} {
+      allow read, write: if false; // Deny by default for unknown collections
+    }
+  }
+}

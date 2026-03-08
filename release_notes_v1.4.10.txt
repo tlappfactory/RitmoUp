@@ -1,0 +1,13 @@
+## Novidades na Versão 1.4.10 🎉
+
+Acompanhe as atualizações mais recentes do RitmoUp:
+
+### 🌟 Melhorias Visuais e Experiência
+* **Novo Mapa Muscular Avançado:** O mapa de calor para acompanhamento dos resultados dos exercícios foi totalmente redesenhado. Agora apresenta um modelo do corpo humano hiper-realista e esteticamente agradável.
+* **Mapeamento de Esforço Aprimorado:** As cores vibrantes dos grupos musculares (do verde claro ao neon) agora evidenciam exatamente e com mais precisão as regiões do corpo baseadas na frequência e volume de treinos.
+* **Ajustes Estéticos Gerais:** Pequenas melhorias na adaptação do layout visual para melhor encaixe no celular (sobreposições aprimoradas).
+
+### ⚙️ Correções
+* Atualização na estabilidade geral do pacote.
+
+Obrigado por usar o RitmoUp! Continue acompanhando seu progresso. 💪

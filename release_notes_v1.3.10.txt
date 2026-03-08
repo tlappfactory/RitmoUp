@@ -1,0 +1,8 @@
+Versão 1.3.10
+
+Novidades:
+- UI Refinada: Remoção da barra de título nativa para uma experiência "full screen".
+- Barra de status transparente para maior imersão.
+- Correção no reconhecimento de voz para criação de treinos (Android nativo).
+- Integração com Stripe Payment Link para assinatura de personal trainers.
+- Melhorias gerais de performance e correções de bugs.

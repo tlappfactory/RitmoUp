@@ -1,0 +1,8 @@
+Versão 1.3.8
+
+Novidades:
+- Correção de compatibilidade com Android 15 (Edge-to-Edge).
+- Inclui todas as melhorias da versão 1.3.7:
+  - Correção no check-out para Personal Trainers (Teste Grátis de 7 dias).
+  - Correção no Áudio dos Treinos.
+  - Correção no layout do reconhecimento de fala.

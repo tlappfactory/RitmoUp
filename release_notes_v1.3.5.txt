@@ -1,0 +1,22 @@
+
+Versão 1.3.5 - Atualização de UX e Sistema de Versões
+
+Novidades:
+1.  **Verificador de Atualizações (Mobile):**
+    -   Novo sistema que notifica o usuário quando o app está desatualizado.
+    -   Pop-up com botão para atualizar diretamente na loja.
+    -   Integração com Firebase para controle remoto de versão.
+
+2.  **Melhorias de Interface (Mobile Polish):**
+    -   **Barra de Status:** Agora sincronizada com o tema do app (Dark/Light) para uma aparência 100% nativa.
+    -   **Toque e Seleção:** Bloqueio de zoom indesejado e seleção de texto em elementos de UI, melhorando a sensação de aplicativo nativo.
+    -   **Inputs:** Correção para garantir que campos de texto continuem funcionais e selecionáveis.
+
+3.  **Outros:**
+    -   Confirmação de feedback tátil (Haptics) em interações chave.
+    -   Correções menores de layout.
+
+Destaques Técnicos:
+-   Configuração de `theme-color` no index.html.
+-   Implementação de `VersionChecker` global.
+-   Ajustes de CSS em `user-select`.

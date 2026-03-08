@@ -1,0 +1,10 @@
+Novidades da versão 1.2.6:
+
+🚀 **Novidade: Comunidade**
+- Agora você pode acessar a Comunidade diretamente pelo menu lateral! Interaja com seu treinador e outros alunos.
+
+✨ **Melhorias**
+- Ajuste de contraste no botão de tema (Sol/Lua) para melhor visibilidade no modo claro.
+- Correções de segurança e desempenho.
+
+Obrigado por usar o RitmoUp!
