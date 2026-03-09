@@ -20,6 +20,8 @@ import { CommunityPage } from './pages/CommunityPage';
 import { UserRole } from './types';
 import { VersionChecker } from './components/System/VersionChecker';
 
+import { PullToRefresh } from './components/PullToRefresh';
+
 const PrivateRoute = ({ children, allowedRole }: { children?: React.ReactNode, allowedRole?: UserRole }) => {
   const { user, firebaseUser, loading } = useAuth();
   const location = useLocation();
@@ -61,6 +63,11 @@ const PrivateRoute = ({ children, allowedRole }: { children?: React.ReactNode, a
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, firebaseUser, loading } = useAuth();
 
+  const handleRefresh = async () => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    window.location.reload();
+  };
+
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center bg-[#0f172a]"><span className="material-symbols-outlined animate-spin text-4xl text-[#00ff88]">progress_activity</span></div>;
   }
@@ -75,7 +82,11 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/complete-profile" replace />;
   }
 
-  return <>{children}</>;
+  return (
+    <PullToRefresh onRefresh={handleRefresh}>
+      {children}
+    </PullToRefresh>
+  );
 };
 
 const AppRoutes = () => {

@@ -1,0 +1,14 @@
+## Novidades na Versão 1.4.12 🎉
+
+Acompanhe os ajustes e novidades recentes no RitmoUp:
+
+### 🌟 Melhorias e Adições
+* **Botão de Planos na Tela Inicial:** Adicionamos um botão rápido de "Ver Planos" e link no menu para você visualizar o que a plataforma oferece, sem complicação na tela de atração (Landing Page).
+* **Deslize para Atualizar (Pull-to-Refresh) Global:** Adicionamos a funcionalidade "arrastar para atualizar" no topo da tela em todas as partes da plataforma — inclusive nas páginas públicas, como na de Login e Cadastro.
+
+### ⚙️ Correções de Erros
+* **Links da Tela Inicial Corrigidos:** Corrigimos os botões "Entrar" e "Começar" na Landing page que não direcionavam corretamente no Android e Desktop.
+* **Sincronização de Versões do Aplicativo:** Resolvemos a falha em que a versão mobile apresentava descompasso com a versão web. Agora tanto a web quanto mobile mostram a versão atualizada e sincronizada (1.4.12).
+* **Navegação do Fluxo de Login:** Removemos a redundante "seta de voltar" na tela de Login do aplicativo, simplificando a sua experiência de acesso. O fluxo de criação volta a navegar adequadamente pelo processo selecionador de Perfil.
+
+Obrigado por utilizar o RitmoUp! Seu treino, Seu Ritmo. 💪

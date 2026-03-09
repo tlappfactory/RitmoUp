@@ -42,6 +42,7 @@ function setupCTA() {
         if (ctaPrimary) { ctaPrimary.href = APP_LINK_URL; ctaPrimary.addEventListener('click', openAndroid); }
         if (ctaFinal) { ctaFinal.textContent = 'Abrir / Baixar App'; ctaFinal.href = APP_LINK_URL; ctaFinal.addEventListener('click', openAndroid); }
         if (navComecar) { navComecar.textContent = 'Abrir App'; navComecar.href = APP_LINK_URL; navComecar.addEventListener('click', openAndroid); }
+        if (navEntrar) { navEntrar.href = APP_LINK_URL; navEntrar.addEventListener('click', openAndroid); }
 
     } else if (device === 'ios') {
         // iOS → PWA (login page — o banner de instalação aparece lá)
@@ -56,6 +57,8 @@ function setupCTA() {
         if (ctaLabel) ctaLabel.textContent = 'Começar Gratuitamente';
         if (ctaPrimary) ctaPrimary.href = REGISTER_URL;
         if (ctaFinal) { ctaFinal.textContent = 'Criar Conta Grátis'; ctaFinal.href = REGISTER_URL; }
+        if (navComecar) navComecar.href = REGISTER_URL;
+        if (navEntrar) navEntrar.href = PWA_URL;
     }
 }
 
