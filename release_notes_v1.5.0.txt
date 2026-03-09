@@ -1,0 +1,15 @@
+# RitmoUp v1.5.0 - Unified PWA/TWA Edition
+
+Esta é a versão mais importante até agora! Unificamos as plataformas Web e Android em um único Progressive Web App (PWA).
+
+## Novidades:
+- **Migração Completa para TWA:** Removemos todas as dependências do Capacitor. O app agora é carregado diretamente do Firebase Hosting.
+- **Atualizações Instantâneas:** O app se atualiza sozinho no celular sempre que fizermos um deploy via Web.
+- **Performance:** App mais leve e rápido, sem o overhead de plugins nativos pesados.
+- **Refatoração de APIs:** 
+  - Login com Google via Web Redirect.
+  - Vibracão via Web Haptics API.
+  - Reconhecimento de voz via Web Speech API.
+- **Segurança:** Pagamentos Stripe agora utilizam o fluxo de Checkout oficial do navegador.
+
+Versão preparada para publicação via PWABuilder (Trusted Web Activity).

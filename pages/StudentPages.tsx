@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Browser } from '@capacitor/browser';
 import { Card, Button } from '../components/UIComponents';
 import { EnhancedStudentProgress } from '../components/Student/EnhancedStudentProgress';
 import { PullToRefresh } from '../components/PullToRefresh';
@@ -904,7 +903,7 @@ export const WorkoutSession = () => {
 
           {/* Optional Video Card */}
           {currentExercise.videoUrl && (
-            <div className="glass-card p-4 rounded-2xl border border-primary/20 bg-primary/5 flex items-center gap-4 cursor-pointer hover:bg-primary/10 transition-colors group" onClick={() => Browser.open({ url: currentExercise.videoUrl })}>
+            <div className="glass-card p-4 rounded-2xl border border-primary/20 bg-primary/5 flex items-center gap-4 cursor-pointer hover:bg-primary/10 transition-colors group" onClick={() => window.open(currentExercise.videoUrl, '_blank')}>
               <div className="size-12 rounded-full bg-primary text-black flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-primary/20">
                 <span className="material-symbols-outlined text-2xl">play_arrow</span>
               </div>

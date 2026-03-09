@@ -5,9 +5,6 @@ import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../ToastContext';
 import { useTheme } from '../ThemeContext';
-import { Capacitor } from '@capacitor/core';
-import { checkAppVersion } from '../utils/versionCheck';
-// import { version } from '../package.json'; // Removed to use injected version
 
 export const Settings = () => {
     const { user, logout } = useAuth();
@@ -168,32 +165,14 @@ export const Settings = () => {
                 <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/5 text-center space-y-3 pb-8">
                     <p className="text-xs text-gray-400">Versão: v{import.meta.env.PACKAGE_VERSION}</p>
                     <button
-                        onClick={async () => {
-                            if (Capacitor.isNativePlatform()) {
-                                try {
-                                    showToast('Verificando atualizações...', 'info');
-                                    const result = await checkAppVersion(import.meta.env.PACKAGE_VERSION || '0.0.0');
-                                    if (result.hasUpdate) {
-                                        showToast(`Nova versão encontrada: v${result.latestVersion}`, 'success');
-                                        // Ideally open store, but for now just notify
-                                        window.open(result.updateUrl, '_system');
-                                    } else {
-                                        showToast('Seu app está atualizado!', 'success');
-                                    }
-                                } catch (e) {
-                                    console.error('Version check error:', e);
-                                    showToast('Não foi possível verificar atualizações. Tente novamente mais tarde.', 'error');
-                                }
-                            } else {
-                                // Web: Force reload to get latest build
-                                showToast('Recarregando...', 'info');
-                                setTimeout(() => window.location.reload(), 500);
-                            }
+                        onClick={() => {
+                            showToast('Verificando e recarregando...', 'info');
+                            setTimeout(() => window.location.reload(), 500);
                         }}
                         className="text-xs font-bold text-primary hover:text-primary/80 transition-colors flex items-center justify-center gap-1 mx-auto py-2 px-4 rounded-lg hover:bg-white/5 active:bg-white/10"
                     >
                         <span className="material-symbols-outlined text-sm">update</span>
-                        {Capacitor.isNativePlatform() ? 'Verificar Atualizações' : 'Forçar Atualização'}
+                        Forçar Atualização Local
                     </button>
                 </div>
             </div>

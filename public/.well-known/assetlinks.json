@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.ritmoup.app",
+            "sha256_cert_fingerprints": [
+                "0C:05:48:DC:88:84:DE:17:11:BA:65:9E:B8:9E:30:21:5B:AE:D4:89:62:6D:6E:17:69:50:20:EC:2A:3A:61:3D"
+            ]
+        }
+    }
+]

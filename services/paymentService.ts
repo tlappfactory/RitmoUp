@@ -1,40 +1,22 @@
-import { functions } from '../lib/firebase';
-import { httpsCallable } from 'firebase/functions';
-import { Stripe } from '@capacitor-community/stripe';
-
 export const paymentService = {
     initiatePayment: async (priceId?: string) => {
-        // 1. Call Backend to get Client Secret & Ephemeral Key
-        const createPaymentSheetFn = httpsCallable(functions, 'createPaymentSheet');
-        const { data } = await createPaymentSheetFn({ priceId });
-        const { paymentIntent, ephemeralKey, customer, publishableKey } = data as any;
+        // Since we are migrating to PWA TWA without native Capacitor Plugins, 
+        // the easiest path to checkout for subscriptions while keeping security
+        // and using the existing Stripe configurations is to route the user
+        // directly to a predefined Stripe Payment Link or Checkout Session URL.
 
-        // 2. Initialize Stripe
-        // Ideally initialize once in App.tsx or a dedicated provider, but here ensures we have the key.
-        // We can check if it's already initialized if the plugin supports it, but initialize is generally safe to call.
-        await Stripe.initialize({
-            publishableKey: publishableKey,
-        });
+        // Warning: This implies the user has either a `priceId` passed here to dynamic endpoints,
+        // or a static Payment Link in AuthPages (as we saw in AuthPages Register).
 
-        // 3. Create Payment Sheet
-        // Detect if it is a SetupIntent (for trials) or PaymentIntent (immediate charge)
-        const isSetupIntent = paymentIntent.startsWith('seti_');
+        // This acts as a generic handler if called from elsewhere:
+        console.log("Stripe web direct payment initiated for:", priceId);
 
-        await Stripe.createPaymentSheet({
-            paymentIntentClientSecret: isSetupIntent ? undefined : paymentIntent,
-            setupIntentClientSecret: isSetupIntent ? paymentIntent : undefined,
-            customerId: customer,
-            customerEphemeralKeySecret: ephemeralKey,
-            merchantDisplayName: 'RitmoUp',
-        });
+        // Example dynamic fallback:
+        // You may need to create a Stripe Web Checkout Session in your Firebase functions
+        // and return the URL to window.location.href.
+        // For now, based on your implementation, we redirect to a static link:
+        window.location.href = 'https://buy.stripe.com/5kQ5kEblQ2az2QU0R800000';
 
-        // 4. Present Payment Sheet
-        const result = await Stripe.presentPaymentSheet();
-
-        if (result.paymentResult === 'paymentSheetCompleted') {
-            return { success: true };
-        } else {
-            throw new Error('Payment cancelled or failed');
-        }
+        return { success: true };
     }
 };

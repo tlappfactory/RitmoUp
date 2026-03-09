@@ -17,8 +17,6 @@ import {
   User as FirebaseUser
 } from 'firebase/auth';
 import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
-import { Capacitor } from '@capacitor/core';
-import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 
 export interface AuthContextType {
   user: User | null;
@@ -147,7 +145,6 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
 
   const logout = async () => {
     await signOut(auth);
-    await FirebaseAuthentication.signOut(); // Ensure native session is also cleared
     setUser(null);
     setFirebaseUser(null);
   };
@@ -157,17 +154,11 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
   };
 
   const loginWithGoogle = async () => {
-    console.log('[Auth] Google login initiated');
+    console.log('[Auth] Google login initiated (Web Only)');
 
     try {
-      if (Capacitor.isNativePlatform()) {
-        const result = await FirebaseAuthentication.signInWithGoogle();
-        const credential = GoogleAuthProvider.credential(result.credential?.idToken);
-        await signInWithCredential(auth, credential);
-      } else {
-        const provider = new GoogleAuthProvider();
-        await signInWithRedirect(auth, provider);
-      }
+      const provider = new GoogleAuthProvider();
+      await signInWithRedirect(auth, provider);
     } catch (error: any) {
       console.error('[Auth] ✗ Login error:', error);
       console.error('[Auth] Error code:', error.code);

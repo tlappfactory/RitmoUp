@@ -1,26 +1,14 @@
 {
   "name": "ritmoup",
   "private": true,
-  "version": "1.4.12",
+  "version": "1.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "build:android": "npm run build && npx cap sync android && cd android && .\\gradlew assembleDebug",
-    "build:release": "npm run build && npx cap sync android && cd android && .\\gradlew bundleRelease"
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@capacitor-community/speech-recognition": "^7.0.1",
-    "@capacitor-community/stripe": "^8.0.1",
-    "@capacitor-firebase/authentication": "^8.0.1",
-    "@capacitor/android": "^8.0.1",
-    "@capacitor/app": "^8.0.0",
-    "@capacitor/browser": "^8.0.0",
-    "@capacitor/camera": "^8.0.1",
-    "@capacitor/core": "^8.0.0",
-    "@capacitor/haptics": "^8.0.0",
-    "@capacitor/status-bar": "^8.0.0",
     "@yudiel/react-qr-scanner": "^2.5.0",
     "date-fns": "^4.1.0",
     "firebase": "^10.14.0",
@@ -35,8 +23,6 @@
     "vite-plugin-pwa": "^1.2.0"
   },
   "devDependencies": {
-    "@capacitor/assets": "^3.0.5",
-    "@capacitor/cli": "^8.0.0",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "firebase-tools": "^14.27.0",

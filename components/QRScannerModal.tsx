@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { Button } from './UIComponents';
-import { Camera } from '@capacitor/camera';
-import { Capacitor } from '@capacitor/core';
 
 interface QRScannerModalProps {
     isOpen: boolean;
@@ -19,29 +17,9 @@ export const QRScannerModal = ({ isOpen, onClose, onScan }: QRScannerModalProps)
         const checkPermission = async () => {
             if (!isOpen) return;
 
-            if (Capacitor.isNativePlatform()) {
-                try {
-                    const status = await Camera.checkPermissions();
-
-                    if (status.camera === 'granted') {
-                        setHasPermission(true);
-                    } else {
-                        const request = await Camera.requestPermissions({ permissions: ['camera'] });
-                        if (request.camera === 'granted') {
-                            setHasPermission(true);
-                        } else {
-                            setError("Permissão da câmera negada. Habilite nas configurações.");
-                        }
-                    }
-                } catch (e) {
-                    console.error("Error checking camera permission", e);
-                    // Fallback: try to load anyway, maybe it's not native or plugin failed
-                    setHasPermission(true);
-                }
-            } else {
-                // Web platform - browser will handle prompt
-                setHasPermission(true);
-            }
+            // In Web PWA, the browser will request permission automatically 
+            // when the scanner component mounts and attempts to access the stream.
+            setHasPermission(true);
         };
 
         checkPermission();

@@ -59,15 +59,7 @@ export const SubscriptionContent = ({ embedded = false }: { embedded?: boolean }
 
     const handleManageSubscription = async () => {
         const url = `${STRIPE_LINK}?prefilled_email=${encodeURIComponent(user?.email || '')}`;
-
-        // Use Capacitor Browser for mobile if available
-        if ((window as any).Capacitor && (window as any).Capacitor.isNativePlatform()) {
-            const { Browser } = await import('@capacitor/browser');
-            await Browser.open({ url });
-        } else {
-            window.open(url, '_blank');
-        }
-
+        window.location.href = url;
         showToast('Redirecionando para o portal de pagamento...', 'success');
     };
 

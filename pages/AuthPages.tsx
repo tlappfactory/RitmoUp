@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Browser } from '@capacitor/browser';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { UserRole } from '../types';
@@ -260,20 +259,8 @@ export const RegisterSelection = () => {
 
         if (role === UserRole.TRAINER) {
           showToast('Redirecionando para pagamento...', 'info');
-          try {
-            // Open Stripe Payment Link
-            await Browser.open({ url: 'https://buy.stripe.com/5kQ5kEblQ2az2QU0R800000' });
-
-            // Listen for browser close to navigate to dashboard
-            Browser.addListener('browserFinished', () => {
-              navigate('/trainer/dashboard');
-            });
-          } catch (error) {
-            console.error(error);
-            showToast('Erro ao abrir pagamento', 'error');
-            // Fallback navigation in case browser fails or user cancels but we want them in
-            navigate('/trainer/dashboard');
-          }
+          // Open Stripe Payment Link
+          window.location.href = 'https://buy.stripe.com/5kQ5kEblQ2az2QU0R800000';
         } else {
           // Explicitly navigate for students
           navigate('/student/dashboard');
@@ -422,20 +409,8 @@ export const RegisterForm = () => {
 
       if (role === UserRole.TRAINER) {
         showToast('Redirecionando para pagamento...', 'info');
-        try {
-          // Open Stripe Payment Link
-          await Browser.open({ url: 'https://buy.stripe.com/5kQ5kEblQ2az2QU0R800000' });
-
-          // Listen for browser close to navigate to dashboard
-          Browser.addListener('browserFinished', () => {
-            navigate('/trainer/dashboard');
-          });
-        } catch (error) {
-          console.error(error);
-          showToast('Erro ao abrir pagamento', 'error');
-          // Fallback navigation
-          navigate('/trainer/dashboard');
-        }
+        // Open Stripe Payment Link in same window
+        window.location.href = 'https://buy.stripe.com/5kQ5kEblQ2az2QU0R800000';
       } else {
         navigate('/student/dashboard');
       }

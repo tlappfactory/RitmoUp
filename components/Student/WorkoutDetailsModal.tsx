@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../UIComponents';
 import { Workout, WorkoutExercise } from '../../types';
-import { Browser } from '@capacitor/browser';
+// removed browser import
 
 interface WorkoutDetailsModalProps {
     isOpen: boolean;
@@ -32,7 +32,7 @@ export const WorkoutDetailsModal = ({ isOpen, onClose, workout, onStart }: Worko
 
     const handleOpenVideo = async (e: React.MouseEvent, url: string) => {
         e.stopPropagation();
-        await Browser.open({ url });
+        window.open(url, '_blank');
     };
 
     return (

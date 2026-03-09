@@ -1,54 +1,42 @@
-import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { useCallback } from 'react';
 
-/**
- * Hook to provide easy access to Haptic feedback
- */
+// Simplified Web Haptics
 export const useHaptics = () => {
 
-    // Light impact (for simple interactions like button presses)
-    const hapticImpact = useCallback(async (style: ImpactStyle = ImpactStyle.Light) => {
-        try {
-            await Haptics.impact({ style });
-        } catch (error) {
-            console.warn('Haptics not supported or failed', error);
+    const vibrate = (pattern: number | number[]) => {
+        if (typeof window !== 'undefined' && navigator.vibrate) {
+            try {
+                navigator.vibrate(pattern);
+            } catch (error) {
+                console.warn('Vibration failed', error);
+            }
         }
+    };
+
+    // Light impact (for simple interactions like button presses)
+    const hapticImpact = useCallback(async () => {
+        vibrate(50);
     }, []);
 
     // Selection changed (for scrolling pickers or sliders)
     const hapticSelectionChanged = useCallback(async () => {
-        try {
-            await Haptics.selectionChanged();
-        } catch (error) {
-            console.warn('Haptics not supported or failed', error);
-        }
+        vibrate(20);
     }, []);
 
     // Selection start (drag start)
     const hapticSelectionStart = useCallback(async () => {
-        try {
-            await Haptics.selectionStart();
-        } catch (error) {
-            console.warn('Haptics not supported or failed', error);
-        }
+        vibrate(20);
     }, []);
 
     // Selection end (drag end)
     const hapticSelectionEnd = useCallback(async () => {
-        try {
-            await Haptics.selectionEnd();
-        } catch (error) {
-            console.warn('Haptics not supported or failed', error);
-        }
+        vibrate(20);
     }, []);
 
-    // Notifications (Success, Warning, Error)
-    const hapticNotification = useCallback(async (type: NotificationType) => {
-        try {
-            await Haptics.notification({ type });
-        } catch (error) {
-            console.warn('Haptics not supported or failed', error);
-        }
+    // Notifications
+    const hapticNotification = useCallback(async (type: any) => {
+        // Simple patterns depending on the type
+        vibrate([100, 50, 100]); // generic success/notification pattern
     }, []);
 
     return {

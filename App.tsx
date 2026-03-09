@@ -142,8 +142,6 @@ const AppRoutes = () => {
   );
 };
 
-import { App as CapApp } from '@capacitor/app';
-
 export default function App() {
   return (
     <AuthProvider>
@@ -151,7 +149,6 @@ export default function App() {
         <ToastProvider>
           <VersionChecker />
           <HashRouter>
-            <DeepLinkHandler />
             <AppRoutes />
           </HashRouter>
         </ToastProvider>
@@ -159,39 +156,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-
-const DeepLinkHandler = () => {
-  const navigate = React.useMemo(() => {
-    // We need to use useNavigate but we are outside of HashRouter in App usually.
-    // Wait, HashRouter is inside App. So we should put DeepLinkHandler inside HashRouter.
-    return null;
-  }, []);
-
-  const { firebaseUser } = useAuth();
-  const location = useLocation();
-  const navigateFn = useNavigate();
-
-  React.useEffect(() => {
-    const setupDeepLinks = async () => {
-      CapApp.addListener('appUrlOpen', (event: any) => {
-        // Example: ritmoup://trainer/dashboard
-        const url = new URL(event.url);
-        const path = url.host + url.pathname; // host can be 'trainer', pathname '/dashboard'
-
-        if (path === 'trainer/dashboard' || event.url.includes('trainer/dashboard')) {
-          navigateFn('/trainer/dashboard');
-        } else if (event.url.includes('payment/success')) {
-          navigateFn('/payment/success');
-        }
-      });
-    };
-
-    setupDeepLinks();
-
-    return () => {
-      CapApp.removeAllListeners();
-    };
-  }, [navigateFn]);
-
-  return null;
-};

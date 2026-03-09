@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">RitmoUp</string>
-    <string name="title_activity_main">RitmoUp</string>
-    <string name="package_name">com.ritmoup.app</string>
-    <string name="custom_url_scheme">com.ritmoup.app</string>
-</resources>
