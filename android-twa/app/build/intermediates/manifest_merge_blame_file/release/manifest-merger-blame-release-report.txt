@@ -1,8 +1,8 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.ritmoup.app"
-4    android:versionCode="100"
-5    android:versionName="1.5.0" >
+4    android:versionCode="102"
+5    android:versionName="1.5.2" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
@@ -17,16 +17,16 @@
 14        <intent>
 14-->[com.google.androidbrowserhelper:androidbrowserhelper:2.5.0] C:\Users\leofe\.gradle\caches\transforms-3\ad3d3d819cab7f0404c94b09cec8e87f\transformed\jetified-androidbrowserhelper-2.5.0\AndroidManifest.xml:27:9-33:18
 15            <action android:name="android.intent.action.VIEW" />
-15-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:34:17-69
-15-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:34:25-66
+15-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:38:17-69
+15-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:38:25-66
 16
 17            <category android:name="android.intent.category.BROWSABLE" />
-17-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:36:17-78
-17-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:36:27-75
+17-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:40:17-78
+17-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:40:27-75
 18
 19            <data android:scheme="https" />
-19-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:37:17-39:46
-19-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:39:21-43
+19-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:41:17-43:46
+19-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:43:21-43
 20        </intent>
 21    </queries>
 22
@@ -42,7 +42,7 @@
 27-->[androidx.core:core:1.9.0] C:\Users\leofe\.gradle\caches\transforms-3\a309491863f1cad1388d82071cb60f8c\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 28
 29    <application
-29-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:7:5-43:19
+29-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:7:5-47:19
 30        android:allowBackup="true"
 30-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:8:9-35
 31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -63,7 +63,7 @@
 39        android:theme="@style/Theme.RitmoUp" >
 39-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:15:9-45
 40        <activity
-40-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:18:9-41:20
+40-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:18:9-45:20
 41            android:name="com.google.androidbrowserhelper.trusted.LauncherActivity"
 41-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:19:13-84
 42            android:exported="true"
@@ -73,66 +73,72 @@
 44            android:theme="@style/Theme.RitmoUp.NoActionBar" >
 44-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:22:13-61
 45            <meta-data
-45-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:24:13-26:64
+45-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:24:13-26:63
 46                android:name="android.support.customtabs.trusted.DEFAULT_URL"
 46-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:25:17-78
-47                android:value="https://ritmoup-app.web.app/" />
-47-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:26:17-61
-48
-49            <intent-filter>
-49-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:28:13-31:29
-50                <action android:name="android.intent.action.MAIN" />
-50-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:29:17-69
-50-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:29:25-66
+47                android:value="https://app.ritmoup.com.br/" />
+47-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:26:17-60
+48            <meta-data
+48-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:28:13-30:45
+49                android:name="android.support.customtabs.trusted.DISPLAY_MODE"
+49-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:29:17-79
+50                android:value="immersive" />
+50-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:30:17-42
 51
-52                <category android:name="android.intent.category.LAUNCHER" />
-52-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:30:17-77
-52-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:30:27-74
-53            </intent-filter>
-54            <intent-filter android:autoVerify="true" >
-54-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:33:13-40:29
-54-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:33:28-53
-55                <action android:name="android.intent.action.VIEW" />
-55-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:34:17-69
-55-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:34:25-66
-56
-57                <category android:name="android.intent.category.DEFAULT" />
-57-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:35:17-76
-57-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:35:27-73
-58                <category android:name="android.intent.category.BROWSABLE" />
-58-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:36:17-78
-58-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:36:27-75
+52            <intent-filter>
+52-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:32:13-35:29
+53                <action android:name="android.intent.action.MAIN" />
+53-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:33:17-69
+53-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:33:25-66
+54
+55                <category android:name="android.intent.category.LAUNCHER" />
+55-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:34:17-77
+55-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:34:27-74
+56            </intent-filter>
+57            <intent-filter android:autoVerify="true" >
+57-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:37:13-44:29
+57-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:37:28-53
+58                <action android:name="android.intent.action.VIEW" />
+58-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:38:17-69
+58-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:38:25-66
 59
-60                <data
-60-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:37:17-39:46
-61                    android:host="ritmoup-app.web.app"
-61-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:38:21-55
-62                    android:scheme="https" />
-62-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:39:21-43
-63            </intent-filter>
-64        </activity>
-65
-66        <provider
-66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-67            android:name="androidx.startup.InitializationProvider"
-67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-68            android:authorities="com.ritmoup.app.androidx-startup"
-68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-69            android:exported="false" >
-69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-70            <meta-data
-70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-72                android:value="androidx.startup" />
-72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+60                <category android:name="android.intent.category.DEFAULT" />
+60-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:39:17-76
+60-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:39:27-73
+61                <category android:name="android.intent.category.BROWSABLE" />
+61-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:40:17-78
+61-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:40:27-75
+62
+63                <data
+63-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:41:17-43:46
+64                    android:host="app.ritmoup.com.br"
+64-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:42:21-54
+65                    android:scheme="https" />
+65-->C:\RitmoUp\android-twa\app\src\main\AndroidManifest.xml:43:21-43
+66            </intent-filter>
+67        </activity>
+68
+69        <provider
+69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+70            android:name="androidx.startup.InitializationProvider"
+70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+71            android:authorities="com.ritmoup.app.androidx-startup"
+71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+72            android:exported="false" >
+72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
 73            <meta-data
-73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\leofe\.gradle\caches\transforms-3\b7bd10e3360a468a9b79e7dca2ad5240\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-74-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\leofe\.gradle\caches\transforms-3\b7bd10e3360a468a9b79e7dca2ad5240\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+73-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+74                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+74-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
 75                android:value="androidx.startup" />
-75-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\leofe\.gradle\caches\transforms-3\b7bd10e3360a468a9b79e7dca2ad5240\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-76        </provider>
-77    </application>
-78
-79</manifest>
+75-->[androidx.emoji2:emoji2:1.2.0] C:\Users\leofe\.gradle\caches\transforms-3\6db5aa862a49de8667f2a7b9b0bf2022\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+76            <meta-data
+76-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\leofe\.gradle\caches\transforms-3\b7bd10e3360a468a9b79e7dca2ad5240\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+77                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+77-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\leofe\.gradle\caches\transforms-3\b7bd10e3360a468a9b79e7dca2ad5240\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+78                android:value="androidx.startup" />
+78-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\leofe\.gradle\caches\transforms-3\b7bd10e3360a468a9b79e7dca2ad5240\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+79        </provider>
+80    </application>
+81
+82</manifest>

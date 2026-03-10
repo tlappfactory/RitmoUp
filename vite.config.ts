@@ -22,6 +22,9 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: 'autoUpdate',
+        workbox: {
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
+        },
         devOptions: {
           enabled: true
         },
@@ -32,7 +35,7 @@ export default defineConfig(({ mode }) => {
           lang: 'pt-BR',
           theme_color: '#0f172a',
           background_color: '#0f172a',
-          display: 'standalone',
+          display: 'fullscreen',
           orientation: 'portrait',
           icons: [
             {

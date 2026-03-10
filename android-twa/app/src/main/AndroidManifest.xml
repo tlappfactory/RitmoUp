@@ -23,7 +23,11 @@
 
             <meta-data
                 android:name="android.support.customtabs.trusted.DEFAULT_URL"
-                android:value="https://ritmoup-app.web.app/" />
+                android:value="https://app.ritmoup.com.br/" />
+            
+            <meta-data
+                android:name="android.support.customtabs.trusted.DISPLAY_MODE"
+                android:value="immersive" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +39,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="ritmoup-app.web.app"
+                    android:host="app.ritmoup.com.br"
                     android:scheme="https" />
             </intent-filter>
         </activity>

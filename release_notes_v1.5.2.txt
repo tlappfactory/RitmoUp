@@ -1,0 +1,6 @@
+# RitmoUp v1.5.2 - Notas de Atualização
+
+**Melhorias e Correções**
+- **Login com Google (Web/App):** Corrigido o domínio de exibição na tela de consentimento do Google de ritmoup.website para app.ritmoup.com.br.
+- **Experiência do App (Android):** Aplicativo configurado com modo Imersivo Tela Cheia (Fullscreen), ocultando a barra de navegação inferior padrão para uma experiência mais fluida.
+- **Internos:** Atualização da numeração da versão PWA e TWA (versionCode 102).

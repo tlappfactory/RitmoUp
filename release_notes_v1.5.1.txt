@@ -1,0 +1,10 @@
+# RitmoUp v1.5.1 - Notas de Atualização
+
+Temos novidades importantes para melhorar a sua experiência ao usar o aplicativo!
+
+## 🚀 Novidades
+
+*   **Novo Domínio Oficial**: O aplicativo agora está rodando no nosso novo domínio oficial (`app.ritmoup.com.br`), trazendo mais credibilidade e uma marca mais forte.
+*   **Experiência em Tela Cheia (App Nativo)**: Adeus, barra do navegador! Configuramos a integração avançada do Android (Trusted Web Activity) para que o aplicativo abra 100% em tela cheia, oferecendo uma experiência totalmente imersiva de aplicativo nativo.
+
+Atualize agora e aproveite o novo RitmoUp! 💪
