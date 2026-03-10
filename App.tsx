@@ -21,6 +21,7 @@ import { UserRole } from './types';
 import { VersionChecker } from './components/System/VersionChecker';
 
 import { PullToRefresh } from './components/PullToRefresh';
+import { DebugLogger } from './components/DebugLogger';
 
 const PrivateRoute = ({ children, allowedRole }: { children?: React.ReactNode, allowedRole?: UserRole }) => {
   const { user, firebaseUser, loading } = useAuth();
@@ -148,6 +149,7 @@ export default function App() {
       <ThemeProvider>
         <ToastProvider>
           <VersionChecker />
+          {/* <DebugLogger /> */}
           <HashRouter>
             <AppRoutes />
           </HashRouter>

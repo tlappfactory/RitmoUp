@@ -18,7 +18,7 @@ const antagonistPairs: Record<string, string[]> = {
 };
 
 export const aiService = {
-    generateWorkout: async (prompt: string, catalog: Exercise[], student?: any): Promise<WorkoutExercise[]> => {
+    generateWorkout: async (prompt: string, catalog: Exercise[], student?: any, targetExerciseCount?: number, targetDuration?: number): Promise<WorkoutExercise[]> => {
         try {
             const functionsVal = getFunctions();
             const genFn = httpsCallable(functionsVal, 'generateWorkoutWithAI');
@@ -29,7 +29,9 @@ export const aiService = {
             const result = await genFn({
                 prompt,
                 availableExercises: exerciseNames,
-                userProfile: student
+                userProfile: student,
+                targetExerciseCount,
+                targetDuration
             });
 
             const generated = result.data as any[];

@@ -28,6 +28,8 @@ export const CreateWorkoutModal: React.FC<CreateWorkoutModalProps> = ({ isOpen, 
     // AI State
     const [aiPrompt, setAiPrompt] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [targetExerciseCount, setTargetExerciseCount] = useState<number | ''>('');
+    const [targetDuration, setTargetDuration] = useState<number | ''>('');
 
     // Speech Recognition
     // Speech Recognition
@@ -81,6 +83,8 @@ export const CreateWorkoutModal: React.FC<CreateWorkoutModalProps> = ({ isOpen, 
             setSelectedStudentId('');
             setIsTemplate(false);
             setAiPrompt('');
+            setTargetExerciseCount('');
+            setTargetDuration('');
         }
     }, [isOpen, initialData]);
 
@@ -177,7 +181,13 @@ export const CreateWorkoutModal: React.FC<CreateWorkoutModalProps> = ({ isOpen, 
             const selectedStudent = activeStudents.find(s => s.id === selectedStudentId);
 
             // Use the enhanced AI service
-            const generatedExercises = await aiService.generateWorkout(aiPrompt, catalog, selectedStudent);
+            const generatedExercises = await aiService.generateWorkout(
+                aiPrompt, 
+                catalog, 
+                selectedStudent, 
+                targetExerciseCount === '' ? undefined : targetExerciseCount, 
+                targetDuration === '' ? undefined : targetDuration
+            );
 
             if (generatedExercises.length === 0) {
                 // Fallback if AI returned nothing (should rarely happen with new logic, but handled inside service mostly)
@@ -214,6 +224,8 @@ export const CreateWorkoutModal: React.FC<CreateWorkoutModalProps> = ({ isOpen, 
                 trainerId: user.id,
                 studentId: isTemplate ? 'template' : selectedStudentId,
                 exercises,
+                duration: targetDuration || 0,
+                exercisesCount: exercises.length,
                 isTemplate,
                 updatedAt: new Date()
             };
@@ -237,6 +249,8 @@ export const CreateWorkoutModal: React.FC<CreateWorkoutModalProps> = ({ isOpen, 
             setExercises([]);
             setSelectedStudentId('');
             setAiPrompt('');
+            setTargetExerciseCount('');
+            setTargetDuration('');
         } catch (error) {
             console.error("Save workout", error);
             showToast("Erro ao salvar treino", "error");
@@ -330,6 +344,40 @@ export const CreateWorkoutModal: React.FC<CreateWorkoutModalProps> = ({ isOpen, 
                                 </button>
                             </div>
                             {isListening && <p className="text-[10px] text-primary/80 mt-1 ml-1 animate-pulse">Gravando...</p>}
+                        </div>
+
+                        {/* Constraints Row */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] text-gray-400 uppercase font-bold ml-1">Qtd. Exercícios</label>
+                                <div className="relative">
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="30"
+                                        placeholder="Automático"
+                                        className="w-full bg-black/20 border border-white/10 rounded-lg h-[40px] px-3 text-sm text-white outline-none focus:border-primary transition-all"
+                                        value={targetExerciseCount}
+                                        onChange={e => setTargetExerciseCount(e.target.value === '' ? '' : parseInt(e.target.value))}
+                                    />
+                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-500 text-sm">format_list_numbered</span>
+                                </div>
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] text-gray-400 uppercase font-bold ml-1">Duração (min)</label>
+                                <div className="relative">
+                                    <input
+                                        type="number"
+                                        min="5"
+                                        max="120"
+                                        placeholder="Automático"
+                                        className="w-full bg-black/20 border border-white/10 rounded-lg h-[40px] px-3 text-sm text-white outline-none focus:border-primary transition-all"
+                                        value={targetDuration}
+                                        onChange={e => setTargetDuration(e.target.value === '' ? '' : parseInt(e.target.value))}
+                                    />
+                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-500 text-sm">schedule</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

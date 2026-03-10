@@ -37,83 +37,73 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Set Auth Persistence to Local (survives browser restarts)
-  useEffect(() => {
-    setPersistence(auth, browserLocalPersistence)
-      .then(() => {
-        console.log('[Auth] ✓ Persistence set to browserLocalPersistence');
-      })
-      .catch((error) => {
-        console.error('[Auth] ✗ Could not set persistence:', error);
-      });
-  }, []);
-
-  // Handle Google Redirect Result with detailed logging
-  useEffect(() => {
-    const handleRedirect = async () => {
-      try {
-        console.log('[Auth] Checking for redirect result...');
-        const result = await getRedirectResult(auth);
-
-        if (result?.user) {
-          console.log('[Auth] ✓ Redirect successful for user:', result.user.uid);
-          console.log('[Auth] User email:', result.user.email);
-        } else {
-          console.log('[Auth] No redirect result found (normal on initial load)');
-        }
-      } catch (error: any) {
-        console.error('[Auth] ✗ Redirect error:', error);
-        console.error('[Auth] Error code:', error.code);
-        console.error('[Auth] Error message:', error.message);
-      }
-    };
-    handleRedirect();
-  }, []);
-
-  // onAuthStateChanged will detect the user, and if no profile exists, 'user' state will remain null while 'firebaseUser' is set.
-
+  // Consolidated Auth Initialization
   useEffect(() => {
     let unsubscribeSnapshot: (() => void) | undefined;
+    let isMounted = true;
 
-    const unsubscribeAuth = onAuthStateChanged(auth, (authUser) => {
-      setFirebaseUser(authUser);
-
-      if (unsubscribeSnapshot) {
-        unsubscribeSnapshot();
-        unsubscribeSnapshot = undefined;
+    const initializeAuth = async () => {
+      console.log('[Auth] Initializing on custom domain...');
+      
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          console.log('[Auth] Redirect sign-in success:', result.user.email);
+        }
+      } catch (error: any) {
+        console.error('[Auth] Redirect error:', error);
+        // Special handling for common Google/Email conflict
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          // This will be caught by the component or we can set a global error state
+          console.error('[Auth] Account exists with different credential. User should use email/password.');
+        }
       }
 
-      if (authUser) {
-        setLoading(true); // Ensure loading is true while we fetch the profile
-        const userDocRef = doc(db, 'users', authUser.uid);
-        unsubscribeSnapshot = onSnapshot(userDocRef, (docSnap) => {
-          if (docSnap.exists()) {
-            const userData = docSnap.data() as Omit<User, 'id'>;
-            setUser({
-              id: authUser.uid,
-              ...userData
-            });
-          } else {
-            // User authenticated but no profile yet (New Google User)
-            setUser(null);
-          }
-          setLoading(false);
-        }, (error) => {
-          console.error('Error fetching user profile:', error);
+      // 2. Set up the main session listener
+      const unsubscribeAuth = onAuthStateChanged(auth, async (authUser) => {
+        if (!isMounted) return;
+        
+        console.log('[Auth] onAuthStateChanged:', authUser?.uid || 'null');
+        setFirebaseUser(authUser);
+
+        if (unsubscribeSnapshot) {
+          unsubscribeSnapshot();
+          unsubscribeSnapshot = undefined;
+        }
+
+        if (authUser) {
+          setLoading(true);
+          const userDocRef = doc(db, 'users', authUser.uid);
+          unsubscribeSnapshot = onSnapshot(userDocRef, (docSnap) => {
+            if (!isMounted) return;
+            
+            if (docSnap.exists()) {
+              setUser({ id: authUser.uid, ...(docSnap.data() as Omit<User, 'id'>) });
+            } else {
+              console.warn('[Auth] Profile missing.');
+              setUser(null);
+            }
+            setLoading(false);
+          }, (err) => {
+            console.error('[Auth] Snapshot error:', err);
+            setLoading(false);
+          });
+        } else {
           setUser(null);
+          setFirebaseUser(null);
           setLoading(false);
-        });
-      } else {
-        setUser(null);
-        setLoading(false);
-      }
-    });
+        }
+      });
+
+      return unsubscribeAuth;
+    };
+
+    const authPromise = initializeAuth();
 
     return () => {
-      unsubscribeAuth();
-      if (unsubscribeSnapshot) {
-        unsubscribeSnapshot();
-      }
+      isMounted = false;
+      authPromise.then(unsub => unsub?.());
+      if (unsubscribeSnapshot) unsubscribeSnapshot();
     };
   }, []);
 
@@ -154,15 +144,13 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
   };
 
   const loginWithGoogle = async () => {
-    console.log('[Auth] Google login initiated (Web Only)');
-
+    console.log('[Auth] Redirecting to Google...');
     try {
       const provider = new GoogleAuthProvider();
+      await setPersistence(auth, browserLocalPersistence);
       await signInWithRedirect(auth, provider);
     } catch (error: any) {
-      console.error('[Auth] ✗ Login error:', error);
-      console.error('[Auth] Error code:', error.code);
-      console.error('[Auth] Error message:', error.message);
+      console.error('[Auth] Google redirect trigger failed:', error);
       throw error;
     }
   };

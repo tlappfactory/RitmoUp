@@ -274,7 +274,7 @@ export const generateWorkoutWithAI = functions.https.onCall(async (data: any, co
         throw new functions.https.HttpsError('unauthenticated', 'User must be logged in.');
     }
 
-    const { prompt, availableExercises, userProfile } = data; // availableExercises is Array<string>
+    const { prompt, availableExercises, userProfile, targetExerciseCount, targetDuration } = data; // availableExercises is Array<string>
 
     try {
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -285,6 +285,9 @@ export const generateWorkoutWithAI = functions.https.onCall(async (data: any, co
         
         User Profile: ${JSON.stringify(userProfile || {})}
         Request: "${prompt}"
+
+        ${targetExerciseCount ? `IMPORTANT: You MUST return EXACTLY ${targetExerciseCount} exercises.` : ''}
+        ${targetDuration ? `IMPORTANT: The workout should be designed to take approximately ${targetDuration} minutes. Adjust sets, reps, and rest periods accordingly.` : ''}
 
         Available Exercises (Select ONLY from this list if possible, but you can suggest others if strictly necessary):
         ${JSON.stringify(availableExercises ? availableExercises.slice(0, 300) : [])}
@@ -302,7 +305,7 @@ export const generateWorkoutWithAI = functions.https.onCall(async (data: any, co
         ]
         
         IMPORTANT: Return ONLY the JSON. No markdown formatting, no code blocks. Just the raw JSON string.
-        CRITICAL: If the user requested a specific number of exercises (e.g., "5 exercícios"), you MUST return EXACTLY that number of exercises.
+        CRITICAL: If the user requested a specific number of exercises, you MUST return EXACTLY that number of exercises.
         `;
 
         const result = await model.generateContent(systemPrompt);
