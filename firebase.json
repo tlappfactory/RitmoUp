@@ -30,6 +30,15 @@
                 "**/.*",
                 "**/node_modules/**"
             ]
+        },
+        {
+            "target": "main",
+            "public": "ritmoup-landing",
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ]
         }
     ],
     "functions": {

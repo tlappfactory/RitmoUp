@@ -315,7 +315,15 @@ export const generateWorkoutWithAI = functions.https.onCall(async (data: any, co
         // Cleanup potential markdown code blocks if the model adds them
         text = text.replace(/\`\`\`json/g, '').replace(/\`\`\`/g, '').trim();
 
-        return JSON.parse(text);
+        let workoutData = JSON.parse(text);
+
+        // Strict Enforcement: Slice to requested amount if AI ignored the prompt
+        if (targetExerciseCount && Array.isArray(workoutData) && workoutData.length > targetExerciseCount) {
+            console.log(`AI returned ${workoutData.length} exercises, trimming to ${targetExerciseCount}`);
+            workoutData = workoutData.slice(0, targetExerciseCount);
+        }
+
+        return workoutData;
 
     } catch (error: any) {
         console.error('AIGen Error:', error);

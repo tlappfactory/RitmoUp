@@ -94,14 +94,13 @@ function setupAnimations() {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.15
+        threshold: 0.05 // Gatilho mais sensível para telas pequenas
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: stop observing once animated
                 observer.unobserve(entry.target);
             }
         });
@@ -109,6 +108,15 @@ function setupAnimations() {
 
     const animatedElements = document.querySelectorAll('.animate-hidden');
     animatedElements.forEach(el => observer.observe(el));
+
+    // Fallback: garante que tudo apareça após 1.5s mesmo se o observer falhar
+    setTimeout(() => {
+        animatedElements.forEach(el => {
+            if (!el.classList.contains('visible')) {
+                el.classList.add('visible');
+            }
+        });
+    }, 1500);
 
     // Dynamic glow in Hero
     const hero = document.getElementById('inicio');

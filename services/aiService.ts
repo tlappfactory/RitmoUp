@@ -19,6 +19,7 @@ const antagonistPairs: Record<string, string[]> = {
 
 export const aiService = {
     generateWorkout: async (prompt: string, catalog: Exercise[], student?: any, targetExerciseCount?: number, targetDuration?: number): Promise<WorkoutExercise[]> => {
+        console.log(`[AI] Generating workout: prompt="${prompt}", targetCount=${targetExerciseCount}, targetDuration=${targetDuration}`);
         try {
             const functionsVal = getFunctions();
             const genFn = httpsCallable(functionsVal, 'generateWorkoutWithAI');
@@ -37,7 +38,7 @@ export const aiService = {
             const generated = result.data as any[];
 
             // Map back to full exercise objects
-            return generated.map((gen: any) => {
+            const mapped = generated.map((gen: any) => {
                 // Find best match in catalog
                 const match = catalog.find(c => c.name.toLowerCase() === gen.exerciseName.toLowerCase())
                     || catalog.find(c => c.name.toLowerCase().includes(gen.exerciseName.toLowerCase()))
@@ -53,9 +54,18 @@ export const aiService = {
                 } as WorkoutExercise;
             });
 
+            // Double Safeguard: Ensure client-side compliance
+            if (targetExerciseCount && mapped.length > targetExerciseCount) {
+                console.log(`[AI] Double safeguard triggered: trimming ${mapped.length} to ${targetExerciseCount}`);
+                return mapped.slice(0, targetExerciseCount);
+            }
+
+            console.log(`[AI] Generation successful: ${mapped.length} exercises`);
+            return mapped;
+
         } catch (e) {
             console.error("AI Generation Failed, falling back to Classic", e);
-            return aiService.generateWorkoutClassic(prompt, catalog, student);
+            return aiService.generateWorkoutClassic(prompt, catalog, student, targetExerciseCount, targetDuration);
         }
     },
     /**
@@ -63,7 +73,8 @@ export const aiService = {
      * Uses a keyword scoring algorithm to find the most relevant exercises.
      * Supports superset creation when requested or for metabolic workouts.
      */
-    generateWorkoutClassic: async (prompt: string, catalog: Exercise[], student?: any): Promise<WorkoutExercise[]> => {
+    generateWorkoutClassic: async (prompt: string, catalog: Exercise[], student?: any, targetExerciseCount?: number, targetDuration?: number): Promise<WorkoutExercise[]> => {
+        console.log(`[AI] Falling back to Classic: targetCount=${targetExerciseCount}`);
         // 1. Preprocessing
         const normalize = (str: string) => str.toLowerCase()
             .normalize("NFD")
@@ -205,7 +216,7 @@ export const aiService = {
             const groupExercises = relevant.filter(e => e.muscleGroup === group || (isGenericRequest && group === 'Pernas' && (e.muscleGroup === 'Glúteos' || e.muscleGroup === 'Panturrilhas')));
 
             // Shuffle top candidates slightly to avoid always picking the same #1 exercise
-            // Take top 5 valid for this group and pick randomly
+            // Take top 8 valid for this group and pick randomly
             const topCandidates = groupExercises.slice(0, 8).sort(() => Math.random() - 0.5);
 
             // For specific groups, take more. For generic fullbody, take 1-2 per group.
@@ -222,7 +233,9 @@ export const aiService = {
 
         // Fill remainder with highest score (which now includes random jitter)
         // Detect explicitly requested number of exercises
-        let maxExercises = isGenericRequest ? 10 : 8;
+        // PRIORITY: Use targetExerciseCount if provided by UI
+        let maxExercises = targetExerciseCount || (isGenericRequest ? 10 : 8);
+        console.log(`[AI] Classic maxExercises set to: ${maxExercises} (from target=${targetExerciseCount})`);
 
         // Map common text numbers to digits for parsing
         const textToNum: Record<string, string> = {
@@ -256,6 +269,9 @@ export const aiService = {
             selectedIds.add(ex.id);
             i++;
         }
+
+        // --- CRITICAL FIX: Trim to maxExercises if Priority Pass exceeded it ---
+        const finalSelected = selected.slice(0, maxExercises);
 
         // --- NEW: Intensity & Load Estimation ---
         let intensity = 'moderate'; // 'strength', 'hypertrophy', 'endurance', 'moderate'
@@ -299,7 +315,7 @@ export const aiService = {
         const bodyweightKeywords = ['flexão', 'flexao', 'abdominal', 'infra', 'supra', 'prancha', 'mergulho', 'barra fixa', 'agachamento livre', 'burpee', 'polichinelo', 'agachamento com salto', 'banco', 'tríceps banco', 'peso corporal', 'bodyweight'];
 
         // 4. Superset Pairing (Enhanced)
-        let result: WorkoutExercise[] = selected.map(ex => {
+        let result: WorkoutExercise[] = finalSelected.map(ex => {
             const p = getSetsRepsRest(intensity, ex.muscleGroup);
             const lowerName = normalize(ex.name);
             const lowerDesc = ex.description ? normalize(ex.description) : "";

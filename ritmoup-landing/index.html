@@ -68,6 +68,12 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Fallback if JS is disabled */
+        noscript .animate-hidden {
+            opacity: 1 !important;
+            transform: none !important;
+        }
     </style>
 </head>
 
@@ -90,7 +96,7 @@
                 <a href="#funcionalidades"
                     class="text-sm font-medium text-gray-300 hover:text-white transition-colors hidden sm:block">Recursos</a>
                 <a href="https://app.ritmoup.com.br/#/pricing"
-                    class="text-sm font-medium text-gray-300 hover:text-white transition-colors hidden sm:block">Planos</a>
+                    class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Planos</a>
                 <a href="#" id="nav-entrar"
                     class="px-5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-bold transition-all hover:scale-105">
                     Entrar

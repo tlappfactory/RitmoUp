@@ -996,6 +996,8 @@ export const CreateWorkout = () => {
     // AI & Voice State
     const [aiPrompt, setAiPrompt] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [targetExerciseCount, setTargetExerciseCount] = useState<number | ''>('');
+    const [targetDuration, setTargetDuration] = useState<number | ''>('');
 
 
     const { isListening, transcript, toggleListening, supported: voiceSupported } = useSpeechRecognition();
@@ -1073,7 +1075,13 @@ export const CreateWorkout = () => {
         setIsGenerating(true);
         try {
             const catalog = await workoutService.getExercises();
-            const generatedExercises = await aiService.generateWorkout(promptToUse, catalog);
+            const generatedExercises = await aiService.generateWorkout(
+                promptToUse, 
+                catalog, 
+                undefined, // student context not fully parsed here yet in the same way as modal, but fine
+                targetExerciseCount === '' ? undefined : targetExerciseCount,
+                targetDuration === '' ? undefined : targetDuration
+            );
 
             if (generatedExercises.length === 0) {
                 showToast('Não encontrei exercícios específicos. Tente descrever o grupo muscular.', 'warning');
@@ -1103,6 +1111,8 @@ export const CreateWorkout = () => {
                 studentId: selectedStudentId || 'template',
                 trainerId: user.id,
                 exercises,
+                duration: targetDuration || 0,
+                exercisesCount: exercises.length,
                 isTemplate,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -1189,6 +1199,40 @@ export const CreateWorkout = () => {
                             </Button>
                         </div>
                         {isListening && <p className="text-xs text-red-500 dark:text-red-400 mt-2 animate-pulse">Ouvindo... Fale agora.</p>}
+
+                        {/* Constraints Row */}
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold ml-1">Qtd. Exercícios</label>
+                                <div className="relative">
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="30"
+                                        placeholder="Automático"
+                                        className="w-full bg-gray-50 dark:bg-[#2C2C2E] border border-glass-border rounded-xl h-[46px] px-4 text-sm text-text-light dark:text-white outline-none focus:border-primary transition-all"
+                                        value={targetExerciseCount}
+                                        onChange={e => setTargetExerciseCount(e.target.value === '' ? '' : parseInt(e.target.value))}
+                                    />
+                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-400 text-sm">format_list_numbered</span>
+                                </div>
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold ml-1">Duração (min)</label>
+                                <div className="relative">
+                                    <input
+                                        type="number"
+                                        min="5"
+                                        max="120"
+                                        placeholder="Automático"
+                                        className="w-full bg-gray-50 dark:bg-[#2C2C2E] border border-glass-border rounded-xl h-[46px] px-4 text-sm text-text-light dark:text-white outline-none focus:border-primary transition-all"
+                                        value={targetDuration}
+                                        onChange={e => setTargetDuration(e.target.value === '' ? '' : parseInt(e.target.value))}
+                                    />
+                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-400 text-sm">schedule</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
