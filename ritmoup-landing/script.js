@@ -27,6 +27,43 @@ function getDevice() {
     return 'desktop';
 }
 
+// iOS: abre modal com instruções
+function openIosModal(e) {
+    if (e) e.preventDefault();
+    const modal = document.getElementById('ios-modal');
+    const backdrop = document.getElementById('ios-modal-backdrop');
+    const content = document.getElementById('ios-modal-content');
+    
+    if (!modal || !backdrop || !content) return;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    // Pequeno delay para animação fluida
+    setTimeout(() => {
+        backdrop.classList.replace('opacity-0', 'opacity-100');
+        content.classList.replace('scale-90', 'scale-100');
+        content.classList.replace('opacity-0', 'opacity-100');
+    }, 10);
+}
+
+function closeIosModal() {
+    const modal = document.getElementById('ios-modal');
+    const backdrop = document.getElementById('ios-modal-backdrop');
+    const content = document.getElementById('ios-modal-content');
+    
+    if (!modal || !backdrop || !content) return;
+
+    backdrop.classList.replace('opacity-100', 'opacity-0');
+    content.classList.replace('scale-100', 'scale-90');
+    content.classList.replace('opacity-100', 'opacity-0');
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }, 300);
+}
+
 // Aplica o redirecionamento correto nos botões CTA
 function setupCTA() {
     const device = getDevice();
@@ -37,20 +74,25 @@ function setupCTA() {
     const navEntrar = document.getElementById('nav-entrar');
 
     if (device === 'android') {
-        // Android → App Link (abre app se instalado) com fallback para Play Store
-        if (ctaLabel) ctaLabel.textContent = 'Abrir / Baixar App';
-        if (ctaPrimary) { ctaPrimary.href = APP_LINK_URL; ctaPrimary.addEventListener('click', openAndroid); }
-        if (ctaFinal) { ctaFinal.textContent = 'Abrir / Baixar App'; ctaFinal.href = APP_LINK_URL; ctaFinal.addEventListener('click', openAndroid); }
-        if (navComecar) { navComecar.textContent = 'Abrir App'; navComecar.href = APP_LINK_URL; navComecar.addEventListener('click', openAndroid); }
+        // Android → Direto para Play Store
+        if (ctaLabel) ctaLabel.textContent = 'Baixar na Play Store';
+        if (ctaPrimary) { ctaPrimary.href = PLAY_STORE_URL; }
+        if (ctaFinal) { ctaFinal.textContent = 'Baixar na Play Store'; ctaFinal.href = PLAY_STORE_URL; }
+        if (navComecar) { navComecar.textContent = 'Baixar App'; navComecar.href = PLAY_STORE_URL; }
         if (navEntrar) { navEntrar.href = APP_LINK_URL; navEntrar.addEventListener('click', openAndroid); }
 
     } else if (device === 'ios') {
-        // iOS → PWA (login page — o banner de instalação aparece lá)
-        if (ctaLabel) ctaLabel.textContent = 'Acessar no iPhone';
-        if (ctaPrimary) ctaPrimary.href = PWA_URL;
-        if (ctaFinal) { ctaFinal.textContent = 'Acessar no iPhone'; ctaFinal.href = PWA_URL; }
-        if (navComecar) { navComecar.textContent = 'Acessar App'; navComecar.href = PWA_URL; }
-        if (navEntrar) navEntrar.href = PWA_URL;
+        // iOS → Abre Modal de Instruções
+        if (ctaLabel) ctaLabel.textContent = 'Instalar App';
+        if (ctaPrimary) { ctaPrimary.href = '#'; ctaPrimary.addEventListener('click', openIosModal); }
+        if (ctaFinal) { ctaFinal.textContent = 'Instalar App'; ctaFinal.href = '#'; ctaFinal.addEventListener('click', openIosModal); }
+        if (navComecar) { navComecar.textContent = 'Instalar App'; navComecar.href = '#'; navComecar.addEventListener('click', openIosModal); }
+        if (navEntrar) { navEntrar.href = '#'; navEntrar.addEventListener('click', openIosModal); }
+        
+        // Listeners do Modal
+        document.getElementById('close-ios-modal')?.addEventListener('click', closeIosModal);
+        document.getElementById('ios-modal-backdrop')?.addEventListener('click', closeIosModal);
+        document.getElementById('cta-ios-entendido')?.addEventListener('click', closeIosModal);
 
     } else {
         // Desktop → cadastro web
