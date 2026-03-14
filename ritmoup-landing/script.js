@@ -3,9 +3,9 @@
 // ================================================================
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.ritmoup.app';
-const APP_LINK_URL = 'https://app.ritmoup.com.br/login'; // App Link: abre o app se instalado
-const PWA_URL = 'https://app.ritmoup.com.br/login';
-const REGISTER_URL = 'https://app.ritmoup.com.br/register';
+const APP_LINK_URL = 'https://app.ritmoup.com.br/#/login'; // App Link: abre o app se instalado
+const PWA_URL = 'https://app.ritmoup.com.br/#/login';
+const REGISTER_URL = 'https://app.ritmoup.com.br/#/register';
 
 // Android: tenta abrir via App Link (abre o app se instalado),
 // com fallback para Play Store após 1.5s se não estiver instalado
@@ -27,41 +27,10 @@ function getDevice() {
     return 'desktop';
 }
 
-// iOS: abre modal com instruções
+// iOS: redireciona para o app com parâmetro para mostrar modal de instalação
 function openIosModal(e) {
     if (e) e.preventDefault();
-    const modal = document.getElementById('ios-modal');
-    const backdrop = document.getElementById('ios-modal-backdrop');
-    const content = document.getElementById('ios-modal-content');
-    
-    if (!modal || !backdrop || !content) return;
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    
-    // Pequeno delay para animação fluida
-    setTimeout(() => {
-        backdrop.classList.replace('opacity-0', 'opacity-100');
-        content.classList.replace('scale-90', 'scale-100');
-        content.classList.replace('opacity-0', 'opacity-100');
-    }, 10);
-}
-
-function closeIosModal() {
-    const modal = document.getElementById('ios-modal');
-    const backdrop = document.getElementById('ios-modal-backdrop');
-    const content = document.getElementById('ios-modal-content');
-    
-    if (!modal || !backdrop || !content) return;
-
-    backdrop.classList.replace('opacity-100', 'opacity-0');
-    content.classList.replace('scale-100', 'scale-90');
-    content.classList.replace('opacity-100', 'opacity-0');
-
-    setTimeout(() => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }, 300);
+    window.location.href = 'https://app.ritmoup.com.br/#/login?showInstallModal=true';
 }
 
 // Aplica o redirecionamento correto nos botões CTA
@@ -89,10 +58,8 @@ function setupCTA() {
         if (navComecar) { navComecar.textContent = 'Instalar App'; navComecar.href = '#'; navComecar.addEventListener('click', openIosModal); }
         if (navEntrar) { navEntrar.href = '#'; navEntrar.addEventListener('click', openIosModal); }
         
-        // Listeners do Modal
-        document.getElementById('close-ios-modal')?.addEventListener('click', closeIosModal);
-        document.getElementById('ios-modal-backdrop')?.addEventListener('click', closeIosModal);
-        document.getElementById('cta-ios-entendido')?.addEventListener('click', closeIosModal);
+        if (navComecar) { navComecar.textContent = 'Instalar App'; navComecar.href = '#'; navComecar.addEventListener('click', openIosModal); }
+        if (navEntrar) { navEntrar.href = '#'; navEntrar.addEventListener('click', openIosModal); }
 
     } else {
         // Desktop → cadastro web

@@ -8,7 +8,7 @@
     },
     "hosting": [
         {
-            "target": "app",
+            "site": "ritmoup-app",
             "public": "dist",
             "ignore": [
                 "firebase.json",
@@ -23,7 +23,7 @@
             ]
         },
         {
-            "target": "landing",
+            "site": "ritmoup-landing",
             "public": "ritmoup-landing",
             "ignore": [
                 "firebase.json",
@@ -32,15 +32,22 @@
             ]
         },
         {
-            "target": "main",
-            "public": "ritmoup-landing",
+            "site": "ritmoup-b432b",
+            "public": "dist",
             "ignore": [
                 "firebase.json",
                 "**/.*",
                 "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "!/__/**",
+                    "destination": "/index.html"
+                }
             ]
         }
     ],
+
     "functions": {
         "source": "functions"
     }

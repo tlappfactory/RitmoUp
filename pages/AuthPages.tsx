@@ -6,146 +6,10 @@ import { Button, Input } from '../components/UIComponents';
 import { BackButton } from '../components/BackButton';
 import { useToast } from '../ToastContext';
 import { paymentService } from '../services/paymentService';
+import { IOSInstallModal } from '../components/IOSInstallModal';
+import { PWAInstallPrompt } from '../components/PWAInstallPrompt';
 
-const PWAPrompt = () => {
-  const [show, setShow] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [platformInfo, setPlatformInfo] = useState<{
-    isIos: boolean;
-    isSafari: boolean;
-    isAndroid: boolean;
-    isChrome: boolean;
-  }>({
-    isIos: false,
-    isSafari: false,
-    isAndroid: false,
-    isChrome: false
-  });
 
-  React.useEffect(() => {
-    const ua = navigator.userAgent;
-    const isIos = /iPad|iPhone|iPod/.test(ua) && !(window as any).MSStream;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-    const isAndroid = /Android/i.test(ua);
-    const isChrome = /Chrome/i.test(ua) || /CriOS/i.test(ua); // CriOS is Chrome on iOS
-
-    // Detect standalone
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
-
-    setPlatformInfo({ isIos, isSafari, isAndroid, isChrome });
-
-    if (!isStandalone) {
-      if (isIos) {
-        setShow(true);
-      } else if (isAndroid && isChrome) {
-        setShow(true);
-      }
-    }
-
-    const handler = (e: any) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setShow(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handler);
-
-    return () => window.removeEventListener('beforeinstallprompt', handler);
-  }, []);
-
-  const handleInstallClick = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        setDeferredPrompt(null);
-        setShow(false);
-      }
-    }
-  };
-
-  if (!show) return null;
-
-  const renderContent = () => {
-    // iOS + Safari
-    if (platformInfo.isIos && platformInfo.isSafari) {
-      return {
-        icon: 'ios_share',
-        text: (
-          <>
-            Toque no menu (<strong>três pontos</strong>) no canto inferior direito, selecione <strong>Compartilhar</strong> e selecione <strong>Adicionar à Tela de Início</strong>.
-          </>
-        )
-      };
-    }
-
-    // iOS + Chrome/Edge
-    if (platformInfo.isIos && !platformInfo.isSafari) {
-      return {
-        icon: 'ios_share',
-        text: (
-          <>
-            Toque no ícone de <strong>Compartilhar</strong> na barra de endereços e selecione <strong>Adicionar à Tela de Início</strong>.
-          </>
-        )
-      };
-    }
-
-    // Android + Chrome
-    if (platformInfo.isAndroid && platformInfo.isChrome) {
-      if (deferredPrompt) {
-        return {
-          icon: 'install_mobile',
-          action: (
-            <button
-              onClick={handleInstallClick}
-              className="mt-2 bg-[#00ff88] text-[#0f172a] text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#00cc6a] transition-all"
-            >
-              Instalar Aplicativo
-            </button>
-          ),
-          text: 'Instale o RitmoUp para ter a melhor experiência de treino.'
-        };
-      }
-      return {
-        icon: 'more_vert',
-        text: (
-          <>
-            Toque no menu (<strong>três pontos</strong>) e selecione <strong>Instalar aplicativo</strong>.
-          </>
-        )
-      };
-    }
-
-    return null;
-  };
-
-  const content = renderContent();
-  if (!content) return null;
-
-  return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up w-[90%] max-w-sm">
-      <div className="bg-[#1e293b]/90 border border-white/10 backdrop-blur-xl p-4 rounded-2xl shadow-2xl flex items-center gap-4">
-        <div className="p-2 bg-white/5 rounded-xl shrink-0">
-          <img src="/favicon.png" alt="App" className="w-8 h-8 rounded-lg" />
-        </div>
-        <div className="flex-1">
-          <p className="text-white text-sm font-medium">Instale o aplicativo</p>
-          <div className="text-gray-400 text-xs mt-1">
-            {content.text}
-            {content.action}
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-2 shrink-0">
-          <span className="material-symbols-outlined text-white/50">{content.icon}</span>
-          <button onClick={() => setShow(false)} className="p-1 text-gray-400 hover:text-white">
-            <span className="material-symbols-outlined text-lg">close</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -156,6 +20,28 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [showInstallModal, setShowInstallModal] = useState(false);
+
+  // Suppress native PWA install prompt on Login page
+  React.useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      console.log('Native PWA install prompt suppressed');
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+
+    // Check for showInstallModal query parameter
+    const params = new URLSearchParams(location.search);
+    if (params.get('showInstallModal') === 'true') {
+      setShowInstallModal(true);
+      // Clean up URL without reloading
+      const newUrl = window.location.pathname + window.location.hash.split('?')[0];
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, [location.search, location.pathname, location.hash]);
+
 
   const handleGoogleLogin = async () => {
     try {
@@ -319,7 +205,15 @@ export const Login = () => {
           Não tem uma conta? <button className="text-[#00ff88] font-bold hover:underline" onClick={() => navigate('/register')}>Cadastre-se</button>
         </p>
       </div>
-      <PWAPrompt />
+
+      <IOSInstallModal 
+        isOpen={showInstallModal} 
+        onClose={() => setShowInstallModal(false)} 
+      />
+
+      <PWAInstallPrompt 
+        onInstallClick={() => setShowInstallModal(true)} 
+      />
     </div>
   );
 };

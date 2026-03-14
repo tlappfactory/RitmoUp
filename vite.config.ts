@@ -22,7 +22,9 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: 'autoUpdate',
+        includeAssets: ['favicon.png', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
         workbox: {
+          globPatterns: ['**/*.{js,css,html,png,svg,woff,woff2}'],
           maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
           navigateFallbackAllowlist: [/^(?!\/__).*/]
         },
@@ -36,8 +38,10 @@ export default defineConfig(({ mode }) => {
           lang: 'pt-BR',
           theme_color: '#0f172a',
           background_color: '#0f172a',
-          display: 'fullscreen',
+          display: 'standalone',
           orientation: 'portrait',
+          start_url: '/',
+          scope: '/',
           icons: [
             {
               src: 'pwa-192x192.png',
@@ -54,10 +58,18 @@ export default defineConfig(({ mode }) => {
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any maskable'
+            },
+            {
+              src: 'apple-touch-icon.png',
+              sizes: '180x180',
+              type: 'image/png'
             }
           ]
         }
       })
+
+
+
     ],
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
