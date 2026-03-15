@@ -111,7 +111,7 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
 
     if (loading) {
         const loadingContent = (
-            <div className="flex bg-[#0f172a] h-screen items-center justify-center">
+            <div className="flex bg-background-light dark:bg-background-dark h-screen items-center justify-center">
                 <span className="material-symbols-outlined animate-spin text-4xl text-primary">progress_activity</span>
             </div>
         );
@@ -130,7 +130,7 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
                         onClick={() => setActiveTab(tab)}
                         className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === tab
                             ? 'bg-primary/20 text-primary shadow-lg'
-                            : 'text-gray-500 hover:text-white hover:bg-white/5'
+                            : 'text-muted hover:text-main hover:bg-white/5'
                             }`}
                     >
                         {tab === 'overview' ? 'Resumo' : tab === 'heatmap' ? 'Mapa' : 'Evolução'}
@@ -145,16 +145,16 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
                         <Card className="bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
                             <div className="flex items-center gap-2 mb-2">
                                 <span className="material-symbols-outlined text-primary">fitness_center</span>
-                                <span className="text-sm text-gray-400">Treinos Totais</span>
+                                <span className="text-sm text-muted">Treinos Totais</span>
                             </div>
-                            <p className="text-3xl font-black text-white">{history.length}</p>
+                            <p className="text-3xl font-black text-main">{history.length}</p>
                         </Card>
                         <Card className="bg-gradient-to-br from-blue-500/10 to-transparent border-blue-500/20">
                             <div className="flex items-center gap-2 mb-2">
                                 <span className="material-symbols-outlined text-blue-400">weight</span>
-                                <span className="text-sm text-gray-400">Volume Total</span>
+                                <span className="text-sm text-muted">Volume Total</span>
                             </div>
-                            <p className="text-3xl font-black text-white">{(totalVolume / 1000).toFixed(1)}k <span className="text-xs">kg</span></p>
+                            <p className="text-3xl font-black text-main">{(totalVolume / 1000).toFixed(1)}k <span className="text-xs">kg</span></p>
                         </Card>
                     </div>
 
@@ -169,7 +169,7 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
                                         <div className="font-black text-lg text-gray-600 w-4">#{idx + 1}</div>
                                         <div className="flex-1">
                                             <div className="flex justify-between text-sm mb-1">
-                                                <span className="font-bold text-white">{muscle}</span>
+                                                <span className="font-bold text-main">{muscle}</span>
                                                 <span className="text-primary">{count} treinos</span>
                                             </div>
                                             <div className="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -183,7 +183,7 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
                                 ))
                             }
                             {Object.keys(muscleFreq).length === 0 && (
-                                <p className="text-gray-500 text-center py-4">Nenhum dado registrado ainda.</p>
+                                <p className="text-muted text-center py-4">Nenhum dado registrado ainda.</p>
                             )}
                         </div>
                     </Card>
@@ -194,7 +194,7 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
             {activeTab === 'heatmap' && (
                 <div className="flex flex-col items-center animate-in fade-in zoom-in duration-500">
                     <MuscleHeatmap data={muscleFreq} gender={user?.gender} />
-                    <p className="text-center text-gray-500 text-sm mt-4 max-w-xs">
+                    <p className="text-center text-muted text-sm mt-4 max-w-xs transition-colors">
                         Este mapa mostra a intensidade de treino por grupo muscular baseado no seu volume total histórico.
                         Áreas mais verdes indicam maior foco.
                     </p>
@@ -206,11 +206,11 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
                 <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                     {/* Exercise Selector */}
                     <div className="flex flex-col gap-2">
-                        <label className="text-sm text-gray-400">Selecione o Exercício</label>
+                        <label className="text-sm text-muted">Selecione o Exercício</label>
                         <select
                             value={selectedExercise}
                             onChange={(e) => setSelectedExercise(e.target.value)}
-                            className="bg-surface-elevated text-white border border-white/10 rounded-xl p-3 outline-none focus:border-primary"
+                            className="bg-input-bg text-main border border-glass-border rounded-xl p-3 outline-none focus:border-primary transition-colors"
                         >
                             {exercisesList.map(ex => (
                                 <option key={ex} value={ex}>{ex}</option>
@@ -222,9 +222,9 @@ export const AnalyticsPage = ({ embedded }: { embedded?: boolean }) => {
                     <OneRMChart data={oneRMData} exerciseName={selectedExercise} />
 
                     {oneRMData.length < 2 && (
-                        <div className="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-xl flex gap-3 items-start">
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-xl flex gap-3 items-start transition-colors">
                             <span className="material-symbols-outlined text-yellow-500">info</span>
-                            <p className="text-sm text-yellow-200/80">
+                            <p className="text-sm text-yellow-800 dark:text-yellow-200/80">
                                 Poucos dados para exibir gráfico de tendência. Continue treinando para ver sua evolução!
                             </p>
                         </div>

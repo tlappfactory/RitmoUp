@@ -239,12 +239,12 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
             </div>
 
             <div className="relative z-10">
-                <p className="text-gray-500 dark:text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">{title}</p>
+                <p className="text-muted text-xs uppercase font-bold tracking-wider mb-1">{title}</p>
                 <div className="flex items-baseline gap-1">
-                    <span className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{value ?? '-'}</span>
-                    <span className="text-xs md:text-sm text-gray-500 font-medium">{unit}</span>
+                    <span className="text-2xl md:text-3xl font-bold text-main">{value ?? '-'}</span>
+                    <span className="text-xs md:text-sm text-muted font-medium">{unit}</span>
                 </div>
-                {subtitle && <p className="text-xs text-gray-500 mt-1">{subtitle}</p>}
+                {subtitle && <p className="text-xs text-muted mt-1">{subtitle}</p>}
             </div>
         </motion.div>
     );
@@ -308,7 +308,7 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                         className="glass-card p-6 lg:col-span-2 border border-white/5"
                     >
                         <div className="flex justify-between items-center mb-6">
-                            <h3 className="font-bold text-lg flex items-center gap-2">
+                            <h3 className="font-bold text-lg flex items-center gap-2 text-main">
                                 <span className="material-symbols-outlined text-primary">analytics</span>
                                 Composição Corporal
                             </h3>
@@ -330,11 +330,11 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                                    <XAxis dataKey="date" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
-                                    <YAxis stroke="#666" fontSize={12} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
+                                    <XAxis dataKey="date" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
                                     <Tooltip
-                                        contentStyle={{ backgroundColor: '#18181b', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px', boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)' }}
-                                        itemStyle={{ color: '#fff' }}
+                                        contentStyle={{ backgroundColor: 'var(--bg-color)', borderColor: 'var(--glass-border)', borderRadius: '12px', boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)' }}
+                                        itemStyle={{ color: 'var(--text-color)' }}
                                     />
                                     <Legend iconType="circle" />
                                     <Area type="monotone" dataKey="weight" name="Peso Total (kg)" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorWeight)" />
@@ -378,12 +378,12 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                             <div className="flex-1 w-full min-h-[250px]">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <LineChart data={chartData}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                                        <XAxis dataKey="date" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
-                                        <YAxis stroke="#666" fontSize={12} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
+                                        <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" vertical={false} />
+                                        <XAxis dataKey="date" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+                                        <YAxis stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} domain={['auto', 'auto']} />
                                         <Tooltip
-                                            contentStyle={{ backgroundColor: '#18181b', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                                            itemStyle={{ color: '#fff' }}
+                                            contentStyle={{ backgroundColor: 'var(--bg-color)', borderColor: 'var(--glass-border)', borderRadius: '12px' }}
+                                            itemStyle={{ color: 'var(--text-color)' }}
                                         />
                                         <Legend wrapperStyle={{ fontSize: '10px' }} />
 
@@ -445,8 +445,8 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                     viewport={{ once: true }}
                     className="glass-card overflow-hidden"
                 >
-                    <div className="p-6 border-b border-white/5 flex justify-between items-center">
-                        <h3 className="font-bold text-lg">Histórico Detalhado</h3>
+                    <div className="p-6 border-b border-glass-border flex justify-between items-center">
+                        <h3 className="font-bold text-lg text-main">Histórico Detalhado</h3>
                         <Button
                             variant="outline"
                             className="text-xs h-8 hover:bg-[#00ff88] hover:text-[#0f172a] hover:border-[#00ff88] transition-all"
@@ -458,7 +458,7 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
-                            <thead className="text-gray-500 bg-gray-50/50 dark:bg-white/5 uppercase text-[10px] md:text-xs">
+                            <thead className="text-muted bg-gray-500/5 uppercase text-[10px] md:text-xs">
                                 <tr>
                                     <th className="px-3 py-3 md:px-6 md:py-4">Data</th>
                                     <th className="px-3 py-3 md:px-6 md:py-4">Peso</th>
@@ -470,7 +470,7 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                                     <th className="px-3 py-3 md:px-6 md:py-4">Medidas</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200 dark:divide-white/5 text-gray-700 dark:text-gray-300">
+                            <tbody className="divide-y divide-glass-border text-main">
                                 {progressEntries.map((entry) => (
                                     <tr key={entry.id} className="hover:bg-white/5 transition-colors">
                                         <td className="px-3 py-3 md:px-6 md:py-4 font-medium flex items-center gap-2 text-xs md:text-sm">

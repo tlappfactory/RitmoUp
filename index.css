@@ -4,6 +4,7 @@
     /* Default Dark Mode Constants */
     --bg-color: #0f172a;
     --text-color: #f1f5f9;
+    --text-secondary: #94a3b8;
     --glass-bg: rgba(30, 41, 59, 0.4);
     --glass-border: rgba(255, 255, 255, 0.05);
     --input-bg: rgba(30, 41, 59, 0.5);
@@ -22,16 +23,18 @@
 /* Light Mode Overrides */
 body.light-mode {
     color-scheme: light;
-    --bg-color: #f8fafc;
-    /* Slate 50 - Very Pale Blue-Grey */
+    --bg-color: #ffffff;
+    /* Clean white for better visibility */
     --text-color: #0f172a;
     /* Slate 900 - Deepest Blue */
-    --glass-bg: rgba(255, 255, 255, 0.75);
-    /* White with opacity */
-    --glass-border: rgba(226, 232, 240, 0.8);
-    /* Slate 200 */
-    --input-bg: #ffffff;
-    /* Solid white for inputs */
+    --text-secondary: #64748b;
+    /* Slate 500 for secondary text */
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    /* More opaque white */
+    --glass-border: rgba(0, 0, 0, 0.08);
+    /* Subtler dark border */
+    --input-bg: #f8fafc;
+    /* Slate 50 for inputs */
     --input-border: #e2e8f0;
     /* Slate 200 */
     --primary: #10b981;
@@ -42,10 +45,8 @@ body.light-mode {
     --shadow-color: rgba(0, 0, 0, 0.05);
 
     /* Subtle warm/cool gradients */
-    --gradient-1: rgba(139, 92, 246, 0.05);
-    /* Violet 500 at 5% */
-    --gradient-2: rgba(16, 185, 129, 0.05);
-    /* Emerald 500 at 5% */
+    --gradient-1: rgba(139, 92, 246, 0.08);
+    --gradient-2: rgba(16, 185, 129, 0.08);
 }
 
 body {

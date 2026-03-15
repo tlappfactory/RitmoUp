@@ -10,7 +10,7 @@ interface OneRMChartProps {
 export const OneRMChart: React.FC<OneRMChartProps> = ({ data, exerciseName }) => {
     if (!data || data.length === 0) {
         return (
-            <div className="bg-surface-dark rounded-xl p-6 text-center text-gray-500 h-64 flex items-center justify-center">
+            <div className="bg-surface-dark rounded-xl p-6 text-center text-muted h-64 flex items-center justify-center">
                 <p>Sem dados suficientes para {exerciseName}</p>
             </div>
         );
@@ -20,10 +20,10 @@ export const OneRMChart: React.FC<OneRMChartProps> = ({ data, exerciseName }) =>
         if (active && payload && payload.length) {
             const point = payload[0].payload;
             return (
-                <div className="bg-surface-elevated border border-white/10 p-3 rounded-lg shadow-xl">
-                    <p className="text-white font-bold">{label}</p>
+                <div className="bg-surface-dark border border-glass-border p-3 rounded-lg shadow-xl backdrop-blur-md">
+                    <p className="text-main font-bold">{label}</p>
                     <p className="text-primary font-bold">{point.oneRM} kg (1RM Est.)</p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-muted">
                         Baseado em: {point.weight}kg x {point.reps} reps
                     </p>
                 </div>
@@ -33,23 +33,23 @@ export const OneRMChart: React.FC<OneRMChartProps> = ({ data, exerciseName }) =>
     };
 
     return (
-        <div className="bg-surface-dark rounded-xl p-4 shadow-lg">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <div className="bg-surface-dark rounded-xl p-4 shadow-lg border border-glass-border">
+            <h3 className="text-lg font-bold text-main mb-4 flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">trending_up</span>
                 Evolução de Carga: {exerciseName}
             </h3>
             <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
                         <XAxis
                             dataKey="date"
-                            stroke="#9ca3af"
+                            stroke="var(--text-secondary)"
                             fontSize={12}
                             tickMargin={10}
                         />
                         <YAxis
-                            stroke="#9ca3af"
+                            stroke="var(--text-secondary)"
                             fontSize={12}
                             domain={['dataMin - 5', 'dataMax + 5']}
                         />

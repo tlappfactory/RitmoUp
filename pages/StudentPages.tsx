@@ -133,8 +133,8 @@ export const StudentDashboard = () => {
             </div>
 
             <div className="flex-1 z-10">
-              <h2 className="text-xl font-bold mb-1">Foco de Hoje: {studentGoal}</h2>
-              <p className="text-gray-400 text-sm mb-3">
+              <h2 className="text-xl font-bold mb-1 text-main">Foco de Hoje: {studentGoal}</h2>
+              <p className="text-muted text-sm mb-3">
                 Você completou {weeklyStats.count} de {weeklyTarget} treinos esta semana. {weeklyStats.count === 0 ? 'Vamos começar a semana com tudo?' : weeklyStats.count >= weeklyTarget ? 'Meta batida! Parabéns!' : 'Continue assim!'}
               </p>
               <button className="text-sm font-bold text-primary hover:underline" onClick={() => { hapticImpact(); navigate('/student/workouts'); }}>Ver Treinos</button>
@@ -157,31 +157,31 @@ export const StudentDashboard = () => {
 
           {/* Quick Actions Grid */}
           <div>
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2"><span className="material-symbols-outlined text-primary">bolt</span> Ações Rápidas</h3>
+            <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-main"><span className="material-symbols-outlined text-primary">bolt</span> Ações Rápidas</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <button className="glass p-3 md:p-4 rounded-xl flex flex-col items-center gap-3 hover:bg-white/5 transition-all group" onClick={() => { hapticImpact(); navigate('/student/workouts'); }}>
                 <div className="size-10 md:size-12 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined">play_arrow</span>
                 </div>
-                <span className="font-medium">Iniciar Treino</span>
+                <span className="font-medium text-main">Iniciar Treino</span>
               </button>
               <button className="glass p-3 md:p-4 rounded-xl flex flex-col items-center gap-3 hover:bg-white/5 transition-all group" onClick={() => { hapticImpact(); navigate('/student/progress'); }}>
                 <div className="size-10 md:size-12 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined">bar_chart</span>
                 </div>
-                <span className="font-medium">Progresso</span>
+                <span className="font-medium text-main">Progresso</span>
               </button>
               <button className="glass p-3 md:p-4 rounded-xl flex flex-col items-center gap-3 hover:bg-white/5 transition-all group" onClick={() => { hapticImpact(); navigate('/student/schedule'); }}>
                 <div className="size-10 md:size-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined">calendar_add_on</span>
                 </div>
-                <span className="font-medium">Agenda</span>
+                <span className="font-medium text-main">Agenda</span>
               </button>
               <button className="glass p-3 md:p-4 rounded-xl flex flex-col items-center gap-3 hover:bg-white/5 transition-all group" onClick={() => { hapticImpact(); setIsPaymentModalOpen(true); }}>
                 <div className="size-10 md:size-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined">payments</span>
                 </div>
-                <span className="font-medium">Pagamentos</span>
+                <span className="font-medium text-main">Pagamentos</span>
               </button>
             </div>
           </div>
@@ -197,10 +197,10 @@ export const StudentDashboard = () => {
                 </div>
                 <span className="text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-full font-medium">Semana</span>
               </div>
-              <p className="text-sm text-gray-400">Treinos Feitos</p>
+              <p className="text-sm text-muted">Treinos Feitos</p>
               <div className="flex items-baseline gap-2 mt-1">
-                <p className="text-4xl font-bold text-white">{weeklyStats.count}</p>
-                <span className="text-sm text-gray-500">/ {weeklyTarget}</span>
+                <p className="text-4xl font-bold text-main">{weeklyStats.count}</p>
+                <span className="text-sm text-muted">/ {weeklyTarget}</span>
               </div>
             </Card>
             <Card className="bg-gradient-to-br from-blue-500/5 to-transparent border-blue-500/20 hover:border-blue-500/40 transition-colors">
@@ -210,10 +210,10 @@ export const StudentDashboard = () => {
                 </div>
                 <span className="text-xs text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full font-medium">Média</span>
               </div>
-              <p className="text-sm text-gray-400">Minutos / Treino</p>
+              <p className="text-sm text-muted">Minutos / Treino</p>
               <div className="flex items-baseline gap-2 mt-1">
-                <p className="text-4xl font-bold text-white">{weeklyStats.count > 0 ? Math.round(weeklyStats.minutes / weeklyStats.count) : 0}</p>
-                <span className="text-sm text-gray-500">min</span>
+                <p className="text-4xl font-bold text-main">{weeklyStats.count > 0 ? Math.round(weeklyStats.minutes / weeklyStats.count) : 0}</p>
+                <span className="text-sm text-muted">min</span>
               </div>
             </Card>
           </div>
@@ -226,9 +226,9 @@ export const StudentDashboard = () => {
                   <span className="material-symbols-outlined text-lg">monitoring</span>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Evolução do Peso</p>
+                  <p className="text-xs text-muted font-medium">Evolução do Peso</p>
                   <div className="flex items-baseline gap-2">
-                    <h2 className="text-xl font-bold text-white">{weightHistory.length > 0 ? weightHistory[weightHistory.length - 1].weight : '-'} kg</h2>
+                    <h2 className="text-xl font-bold text-main">{weightHistory.length > 0 ? weightHistory[weightHistory.length - 1].weight : '-'} kg</h2>
                     <span className="text-primary text-xs font-bold flex items-center"><span className="material-symbols-outlined text-xs">trending_up</span></span>
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export const StudentDashboard = () => {
           {/* Upcoming */}
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-lg">Próximas Sessões</h3>
+              <h3 className="font-bold text-lg text-main">Próximas Sessões</h3>
               <button className="text-primary text-sm hover:underline" onClick={() => navigate('/student/schedule')}>Ver Todas</button>
             </div>
             <div className="space-y-3">
@@ -451,17 +451,17 @@ export const StudentWorkouts = () => {
             {workouts.map(workout => (
               <div key={workout.id} className="glass-card flex flex-col gap-4 group hover:border-primary/50 transition-colors">
                 <div className="flex gap-4">
-                  <div className="size-14 bg-surface-dark rounded-2xl border border-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="size-14 bg-gray-500/10 dark:bg-surface-dark rounded-2xl border border-glass-border flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <span className="material-symbols-outlined text-2xl">fitness_center</span>
                   </div>
                   <div className="flex-1 py-1">
-                    <h3 className="font-bold text-lg leading-tight">{workout.title}</h3>
-                    <div className="flex flex-wrap gap-3 mt-2 text-sm text-gray-400">
-                      <span className="flex items-center gap-1.5 bg-white/5 px-2 py-0.5 rounded-md">
+                    <h3 className="font-bold text-lg leading-tight text-main">{workout.title}</h3>
+                    <div className="flex flex-wrap gap-3 mt-2 text-sm text-muted">
+                      <span className="flex items-center gap-1.5 bg-gray-500/10 px-2 py-0.5 rounded-md text-purple-accent dark:text-white">
                         <span className="material-symbols-outlined text-sm">signal_cellular_alt</span>
                         {calculateLevel(workout.exercises)}
                       </span>
-                      <span className="flex items-center gap-1.5 bg-white/5 px-2 py-0.5 rounded-md">
+                      <span className="flex items-center gap-1.5 bg-gray-500/10 px-2 py-0.5 rounded-md text-purple-accent dark:text-white">
                         <span className="material-symbols-outlined text-sm">timer</span>
                         {calculateDuration(workout.exercises)} min
                       </span>
@@ -470,7 +470,8 @@ export const StudentWorkouts = () => {
                 </div>
                 <div className="flex gap-2 mt-2">
                   <Button
-                    className="flex-1 h-12 text-base shadow-none border-t border-white/5 rounded-t-none bg-white/5 hover:bg-white/10 text-white"
+                    variant="secondary"
+                    className="flex-1 h-12 text-base shadow-none border-t border-glass-border rounded-t-none bg-gray-500/5 hover:bg-gray-500/10 text-main transition-all"
                     onClick={() => handleOpenDetails(workout)}
                   >
                     <span className="material-symbols-outlined mr-2">visibility</span>
@@ -478,7 +479,7 @@ export const StudentWorkouts = () => {
                   </Button>
                   <Button
                     variant="primary"
-                    className="flex-1 h-12 text-base shadow-none border-t border-white/5 rounded-t-none hover:scale-[1.02] transition-all"
+                    className="flex-1 h-12 text-base shadow-none border-t border-glass-border rounded-t-none hover:scale-[1.02] transition-all"
                     onClick={() => { hapticImpact(); handleStartWorkout(workout.id, workout.title); }}
                   >
                     Começar

@@ -12,17 +12,17 @@ export const StudentStatsPage = () => {
         <DashboardLayout title="Meu Desempenho" showBack>
             <div className="flex flex-col h-full">
                 {/* Main Tabs */}
-                <div className="flex p-1 bg-surface-dark rounded-2xl mx-auto mb-6 w-full max-w-md border border-white/5 relative">
+                <div className="flex p-1 bg-surface-dark dark:bg-surface-dark rounded-2xl mx-auto mb-6 w-full max-w-md border border-white/5 relative">
                     <button
                         onClick={() => { hapticSelectionChanged(); setActiveSection('performance'); }}
-                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all relative z-10 ${activeSection === 'performance' ? 'text-black' : 'text-gray-400 hover:text-white'}`}
+                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all relative z-10 ${activeSection === 'performance' ? 'text-black' : 'text-muted hover:text-white dark:hover:text-white'}`}
                     >
                         <span className="material-symbols-outlined">bar_chart</span>
                         Treinos
                     </button>
                     <button
                         onClick={() => { hapticSelectionChanged(); setActiveSection('body'); }}
-                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all relative z-10 ${activeSection === 'body' ? 'text-black' : 'text-gray-400 hover:text-white'}`}
+                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all relative z-10 ${activeSection === 'body' ? 'text-black' : 'text-muted hover:text-white dark:hover:text-white'}`}
                     >
                         <span className="material-symbols-outlined">accessibility_new</span>
                         Corpo

@@ -167,23 +167,23 @@ export const TrainerFinancials = () => {
                         {/* Stats */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="glass-card">
-                                <p className="text-gray-400 text-sm">Faturamento Total</p>
-                                <p className="text-3xl font-bold mt-1 text-green-400">R$ {totalRevenue.toFixed(2).replace('.', ',')}</p>
+                                <p className="text-muted text-sm">Faturamento Total</p>
+                                <p className="text-3xl font-bold mt-1 text-green-500">R$ {totalRevenue.toFixed(2).replace('.', ',')}</p>
                             </div>
                             <div className="glass-card">
-                                <p className="text-gray-400 text-sm">A Receber</p>
-                                <p className="text-3xl font-bold mt-1 text-yellow-400">R$ {pendingRevenue.toFixed(2).replace('.', ',')}</p>
+                                <p className="text-muted text-sm">A Receber</p>
+                                <p className="text-3xl font-bold mt-1 text-yellow-500">R$ {pendingRevenue.toFixed(2).replace('.', ',')}</p>
                             </div>
                             <div className="glass-card">
-                                <p className="text-gray-400 text-sm">Transações</p>
-                                <p className="text-3xl font-bold mt-1 text-blue-400">{transactions.length}</p>
+                                <p className="text-muted text-sm">Transações</p>
+                                <p className="text-3xl font-bold mt-1 text-blue-500">{transactions.length}</p>
                             </div>
                         </div>
 
                         {/* Main Content */}
                         <div>
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                                <h2 className="text-xl font-bold">Transações Recentes</h2>
+                                <h2 className="text-xl font-bold text-main">Transações Recentes</h2>
                                 <Button className="w-full sm:w-auto" onClick={() => { setEditingTransaction(null); setIsAddModalOpen(true); }}>
                                     <span className="material-symbols-outlined mr-2">add</span> Nova Cobrança
                                 </Button>
@@ -498,8 +498,8 @@ export const TrainerDashboard = () => {
             <div className="space-y-6">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-text-light dark:text-white">Olá, {user?.name?.split(' ')[0] || 'Treinador'}!</h1>
-                        <p className="text-gray-500 dark:text-gray-400">Aqui está o resumo do seu dia.</p>
+                        <h1 className="text-3xl font-bold text-main">Olá, {user?.name?.split(' ')[0] || 'Treinador'}!</h1>
+                        <p className="text-muted font-medium">Aqui está o resumo do seu dia.</p>
                     </div>
                     <div className="flex gap-2">
                         <Button
@@ -521,8 +521,8 @@ export const TrainerDashboard = () => {
                             <div className="p-3 bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-xl group-hover:scale-110 transition-transform"><span className="material-symbols-outlined">groups</span></div>
                             <span className="text-green-600 dark:text-green-500 text-xs font-bold flex items-center bg-green-500/10 px-2 py-1 rounded-full">+0 novos</span>
                         </div>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm">Alunos Ativos</p>
-                        <p className="text-4xl font-bold mt-1 text-text-light dark:text-white">{stats.studentsCount}</p>
+                        <p className="text-muted text-sm">Alunos Ativos</p>
+                        <p className="text-4xl font-bold mt-1 text-main">{stats.studentsCount}</p>
                     </div>
 
                     <div className="glass-card hover:border-primary/50 transition-colors cursor-pointer group" onClick={() => showToast(`${stats.todayClassesCount} aulas hoje`, 'info')}>
@@ -530,39 +530,39 @@ export const TrainerDashboard = () => {
                             <div className="p-3 bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-xl group-hover:scale-110 transition-transform"><span className="material-symbols-outlined">calendar_today</span></div>
                             <span className="text-blue-500 dark:text-blue-400 text-xs font-bold flex items-center bg-blue-500/10 px-2 py-1 rounded-full">Hoje</span>
                         </div>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm">Aulas Agendadas</p>
-                        <p className="text-4xl font-bold mt-1 text-text-light dark:text-white">{stats.todayClassesCount}</p>
+                        <p className="text-muted text-sm">Aulas Agendadas</p>
+                        <p className="text-4xl font-bold mt-1 text-main">{stats.todayClassesCount}</p>
                     </div>
 
                     <div className="glass-card hover:border-primary/50 transition-colors cursor-pointer group">
                         <div className="flex justify-between items-start mb-4">
                             <div className="p-3 bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-400 rounded-xl group-hover:scale-110 transition-transform"><span className="material-symbols-outlined">payments</span></div>
-                            <span className="text-gray-500 dark:text-gray-400 text-xs font-bold flex items-center bg-gray-100 dark:bg-white/5 px-2 py-1 rounded-full">Estimado</span>
+                            <span className="text-muted text-xs font-bold flex items-center bg-gray-500/10 px-2 py-1 rounded-full">Estimado</span>
                         </div>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm">Faturamento Mensal</p>
-                        <p className="text-4xl font-bold mt-1 text-text-light dark:text-white">R$ {stats.estimatedRevenue.toFixed(0)}</p>
+                        <p className="text-muted text-sm">Faturamento Mensal</p>
+                        <p className="text-4xl font-bold mt-1 text-main">R$ {stats.estimatedRevenue.toFixed(0)}</p>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div className="glass-card">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-lg font-bold text-text-light dark:text-white">Próximas Aulas</h2>
+                            <h2 className="text-lg font-bold text-main">Próximas Aulas</h2>
                             <button className="text-primary text-sm font-bold hover:underline" onClick={() => setIsAddClassModalOpen(true)}>+ Agendar</button>
                         </div>
                         <div className="space-y-4">
                             {upcomingClasses.length === 0 ? (
-                                <p className="text-gray-500 text-center py-4">Nenhuma aula agendada.</p>
+                                <p className="text-muted text-center py-4">Nenhuma aula agendada.</p>
                             ) : upcomingClasses.map((cls, i) => (
                                 <div key={cls.id || i} className="flex gap-4 p-3 hover:bg-gray-50 dark:hover:bg-white/5 rounded-xl transition-colors cursor-pointer group border border-transparent hover:border-glass-border">
                                     <div className="flex flex-col items-center justify-center min-w-[3.5rem] bg-gray-100 dark:bg-white/5 rounded-lg p-2 group-hover:bg-primary/10 group-hover:text-primary transition-colors text-text-light dark:text-white">
                                         <span className="font-bold text-lg">{cls.date.toDate().getHours().toString().padStart(2, '0')}:{cls.date.toDate().getMinutes().toString().padStart(2, '0')}</span>
                                     </div>
                                     <div className="flex-1 flex items-center gap-4">
-                                        <div className="size-10 rounded-full bg-gray-200 dark:bg-white/10 flex items-center justify-center font-bold text-xs text-text-light dark:text-white">{cls.studentName.substring(0, 2).toUpperCase()}</div>
+                                        <div className="size-10 rounded-full bg-gray-500/10 flex items-center justify-center font-bold text-xs text-main">{cls.studentName.substring(0, 2).toUpperCase()}</div>
                                         <div>
-                                            <h4 className="font-bold text-text-light dark:text-white">{cls.type}</h4>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">{cls.studentName} • {cls.date.toDate().toLocaleDateString()}</p>
+                                            <h4 className="font-bold text-main">{cls.type}</h4>
+                                            <p className="text-xs text-muted"> {cls.studentName} • {cls.date.toDate().toLocaleDateString()}</p>
                                         </div>
                                     </div >
                                     <button className="size-8 rounded-full border border-glass-border flex items-center justify-center text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-primary dark:hover:text-white"><span className="material-symbols-outlined text-sm">chevron_right</span></button>
@@ -573,7 +573,7 @@ export const TrainerDashboard = () => {
 
                     <div className="glass-card">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-lg font-bold text-text-light dark:text-white">Solicitações Pendentes</h2>
+                            <h2 className="text-lg font-bold text-main">Solicitações Pendentes</h2>
                             <div className="flex items-center gap-2">
                                 <button onClick={refreshRequests} className="text-gray-400 hover:text-primary dark:hover:text-white" title="Atualizar Lista">
                                     <span className="material-symbols-outlined">refresh</span>

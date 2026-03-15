@@ -20,9 +20,9 @@ export const LevelProgress: React.FC<LevelProgressProps> = ({ level, currentXp, 
                     <div className={`size-8 rounded-lg bg-gradient-to-br from-primary to-green-400 flex items-center justify-center font-black text-black text-sm shadow-lg ${isCloseToLevelUp ? 'animate-level-pulse' : ''}`}>
                         {level}
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Nível</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-muted">Nível</span>
                 </div>
-                <span className="text-xs font-medium text-gray-500">
+                <span className="text-xs font-medium text-muted">
                     {currentXp}/{nextLevelXp} XP
                 </span>
             </div>
@@ -40,10 +40,10 @@ export const LevelProgress: React.FC<LevelProgressProps> = ({ level, currentXp, 
 
             {/* XP Remaining */}
             <div className="flex justify-between items-center text-xs">
-                <span className={`font-medium ${isCloseToLevelUp ? 'text-primary animate-pulse' : 'text-gray-500'}`}>
+                <span className={`font-medium ${isCloseToLevelUp ? 'text-primary animate-pulse' : 'text-muted'}`}>
                     {isCloseToLevelUp ? '🔥 Quase lá!' : `Faltam ${xpRemaining} XP`}
                 </span>
-                <span className="text-gray-600">{Math.round(progress)}%</span>
+                <span className="text-muted opacity-70">{Math.round(progress)}%</span>
             </div>
         </div>
     );
@@ -176,9 +176,9 @@ export const AchievementList: React.FC<AchievementListProps> = ({ achievements }
                     <div className="absolute inset-0 rounded-full border-2 border-yellow-400/0 group-hover:border-yellow-400/50 transition-all group-hover:scale-125 group-hover:opacity-0 duration-500" />
 
                     {/* Tooltip */}
-                    <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-max max-w-[160px] bg-surface-dark/95 backdrop-blur-sm p-3 rounded-xl text-xs hidden group-hover:block z-50 pointer-events-none shadow-xl border border-white/10">
+                    <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-max max-w-[160px] bg-slate-900/95 dark:bg-surface-dark/95 backdrop-blur-sm p-3 rounded-xl text-xs hidden group-hover:block z-50 pointer-events-none shadow-xl border border-white/10">
                         <p className="font-bold text-white text-sm">{badge.title}</p>
-                        <p className="text-gray-400 mt-1">{badge.description}</p>
+                        <p className="text-slate-300 dark:text-gray-400 mt-1">{badge.description}</p>
                         {badge.unlockedAt && (
                             <p className="text-primary text-[10px] mt-2 flex items-center gap-1">
                                 <span className="material-symbols-outlined text-xs">check_circle</span>
@@ -204,16 +204,16 @@ interface XPBreakdownProps {
 export const XPBreakdown: React.FC<XPBreakdownProps> = ({ baseXp, bonusXp, totalXp }) => {
     return (
         <div className="bg-white/5 rounded-xl p-4 space-y-2 w-full max-w-xs">
-            <div className="flex justify-between text-sm text-gray-400">
+            <div className="flex justify-between text-sm text-secondary">
                 <span>XP Base</span>
                 <span>+{baseXp}</span>
             </div>
-            <div className="flex justify-between text-sm text-gray-400">
+            <div className="flex justify-between text-sm text-secondary">
                 <span>Bônus de Tempo</span>
                 <span className="text-blue-400">+{bonusXp}</span>
             </div>
-            <div className="border-t border-white/10 pt-2 flex justify-between font-bold">
-                <span className="text-white">Total</span>
+            <div className="border-t border-glass-border pt-2 flex justify-between font-bold">
+                <span className="text-main">Total</span>
                 <span className="text-primary text-lg">+{totalXp} XP</span>
             </div>
         </div>

@@ -68,22 +68,22 @@ export const MuscleHeatmap: React.FC<MuscleHeatmapProps> = ({ data, gender }) =>
     }, [maxFreq]);
 
     return (
-        <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-surface-dark rounded-xl shadow-lg w-full max-w-sm mx-auto relative overflow-hidden backdrop-blur-md border border-white/5">
+        <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-surface-dark rounded-xl shadow-lg w-full max-w-sm mx-auto relative overflow-hidden backdrop-blur-md border border-glass-border">
             <div className="flex flex-col sm:flex-row justify-between w-full items-center mb-4 z-10 gap-3">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <h3 className="text-lg font-bold text-main flex items-center gap-2">
                     <span className="material-symbols-outlined text-primary">accessibility_new</span>
                     Mapa Muscular
                 </h3>
                 <div className="flex bg-black/20 p-1 rounded-lg shrink-0">
                     <button
                         onClick={() => setView('anterior')}
-                        className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${view === 'anterior' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-500 hover:text-gray-300'}`}
+                        className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${view === 'anterior' ? 'bg-primary/20 text-primary shadow-sm' : 'text-muted hover:text-main'}`}
                     >
                         Frente
                     </button>
                     <button
                         onClick={() => setView('posterior')}
-                        className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${view === 'posterior' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-500 hover:text-gray-300'}`}
+                        className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${view === 'posterior' ? 'bg-primary/20 text-primary shadow-sm' : 'text-muted hover:text-main'}`}
                     >
                         Costas
                     </button>
@@ -146,9 +146,9 @@ export const MuscleHeatmap: React.FC<MuscleHeatmapProps> = ({ data, gender }) =>
             </div>
 
             {/* Legend / Intensity Scale */}
-            <div className="flex justify-between w-full text-xs text-gray-400 px-2 mt-4 items-center">
+            <div className="flex justify-between w-full text-xs text-muted px-2 mt-4 items-center">
                 <span className="whitespace-nowrap">Descanso</span>
-                <div className="h-1.5 flex-1 mx-2 rounded-full bg-gradient-to-r from-gray-700 via-green-900 to-primary shadow-sm border border-white/5"></div>
+                <div className="h-1.5 flex-1 mx-2 rounded-full bg-gradient-to-r from-gray-500/20 via-green-900/40 to-primary shadow-sm border border-glass-border"></div>
                 <span className="text-primary font-bold whitespace-nowrap">Fadiga Max</span>
             </div>
         </div>
