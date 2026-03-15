@@ -67,64 +67,79 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
     const handleExportPDF = () => {
         if (!user || progressEntries.length === 0) return;
 
-        const doc = new jsPDF();
+        const doc = new jsPDF('landscape'); // Use landscape for more columns
         const timestamp = format(new Date(), 'dd/MM/yyyy HH:mm', { locale: ptBR });
 
         // Add Logo / Title
         doc.setFillColor(28, 28, 30); // Dark theme background
-        doc.rect(0, 0, 210, 40, 'F');
+        doc.rect(0, 0, 297, 30, 'F');
         
         doc.setTextColor(0, 255, 136); // Primary green
-        doc.setFontSize(24);
+        doc.setFontSize(20);
         doc.setFont('helvetica', 'bold');
-        doc.text('RITMO UP', 15, 20);
+        doc.text('RITMO UP', 15, 15);
         
         doc.setTextColor(200, 200, 200);
-        doc.setFontSize(10);
-        doc.text('Relatório de Evolução do Aluno', 15, 30);
+        doc.setFontSize(9);
+        doc.text('Relatório Completo de Evolução', 15, 22);
         
         doc.setTextColor(255, 255, 255);
-        doc.text(`Data: ${timestamp}`, 195, 30, { align: 'right' });
+        doc.text(`Data: ${timestamp}`, 282, 22, { align: 'right' });
 
         // Student Info Section
         doc.setTextColor(0, 0, 0);
-        doc.setFontSize(14);
-        doc.text('Dados do Aluno', 15, 55);
+        doc.setFontSize(12);
+        doc.text('Dados do Aluno', 15, 40);
         
-        doc.setFontSize(11);
+        doc.setFontSize(9);
         doc.setFont('helvetica', 'normal');
-        doc.text(`Nome: ${user.name}`, 15, 65);
-        doc.text(`Email: ${user.email}`, 15, 72);
-        doc.text(`Altura: ${((user as any).height || '--')} m`, 15, 79);
+        doc.text(`Nome: ${user.name}`, 15, 48);
+        doc.text(`Email: ${user.email}`, 15, 54);
+        doc.text(`Altura: ${((user as any).height || '--')} m`, 15, 60);
 
         // Current Stats Row
         const latest = progressEntries[0] || {};
         doc.setFont('helvetica', 'bold');
-        doc.text('Status Atual:', 130, 65);
+        doc.text('Status Atual:', 200, 48);
         doc.setFont('helvetica', 'normal');
-        doc.text(`Peso: ${latest.weight || '--'} kg`, 130, 72);
-        doc.text(`Gordura: ${latest.bodyFat || '--'}%`, 130, 79);
-        doc.text(`Massa M: ${latest.muscleMass || '--'} kg`, 130, 86);
+        doc.text(`Peso: ${latest.weight || '--'} kg`, 200, 54);
+        doc.text(`Gordura: ${latest.bodyFat || '--'}%`, 200, 60);
+        doc.text(`Massa M: ${latest.muscleMass || '--'} kg`, 200, 66);
 
         // Prepare Table Data
-        const tableBody = progressEntries.map(entry => [
-            format(entry.dateObj, 'dd/MM/yyyy'),
-            `${entry.weight || '--'} kg`,
-            `${entry.bodyFat || '--'}%`,
-            `${entry.muscleMass || '--'} kg`,
-            `${entry.measurements?.chest || '--'}/${entry.measurements?.waist || '--'}/${entry.measurements?.hips || '--'}`,
-            entry.notes || '--'
-        ]);
+        const tableBody = progressEntries.map(entry => {
+            const m = entry.measurements || {};
+            const detailedMeasures = [
+                m.chest ? `P:${m.chest}` : '',
+                m.waist ? `C:${m.waist}` : '',
+                m.hips ? `Q:${m.hips}` : '',
+                m.armRight ? `B:${m.armRight}` : '',
+                m.thighRight ? `Cx:${m.thighRight}` : '',
+                m.calfRight ? `Pa:${m.calfRight}` : ''
+            ].filter(Boolean).join(' | ');
+
+            return [
+                format(entry.dateObj, 'dd/MM/yyyy'),
+                `${entry.weight || '--'} kg`,
+                `${entry.bodyFat || '--'}%`,
+                `${entry.muscleMass || '--'} kg`,
+                `${entry.dailyEnergy || '--'}/10`,
+                `${entry.sleepQuality || '--'}/10`,
+                `${entry.hydration || '--'} L`,
+                detailedMeasures || '--',
+                entry.notes || '--'
+            ];
+        });
 
         // Generate Table
         autoTable(doc, {
-            startY: 95,
-            head: [['Data', 'Peso', 'Gordura', 'Massa Musc.', 'Medidas (P/C/Q)', 'Observações']],
+            startY: 75,
+            head: [['Data', 'Peso', 'Gordura', 'Massa Musc.', 'Energia', 'Sono', 'Hidrat.', 'Medidas (P/C/Q/B/Cx/Pa)', 'Obs.']],
             body: tableBody,
-            headStyles: { fillColor: [28, 28, 30], textColor: [0, 255, 136] },
+            headStyles: { fillColor: [28, 28, 30], textColor: [0, 255, 136], fontSize: 8 },
             alternateRowStyles: { fillColor: [245, 245, 245] },
-            margin: { top: 95 },
-            styles: { fontSize: 9 }
+            margin: { left: 15, right: 15 },
+            styles: { fontSize: 8, cellPadding: 2 }
         });
 
         // Add Footer with page numbers
@@ -133,7 +148,7 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
             doc.setPage(i);
             doc.setFontSize(8);
             doc.setTextColor(150, 150, 150);
-            doc.text(`Página ${i} de ${pageCount} | ritmoup.web.app`, 105, 285, { align: 'center' });
+            doc.text(`Página ${i} de ${pageCount} | ritmoup.web.app`, 148.5, 200, { align: 'center' });
         }
 
         doc.save(`Evolucao_RitmoUp_${user.name.replace(/\s+/g, '_')}_${format(new Date(), 'ddMMyy')}.pdf`);
@@ -443,12 +458,15 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
-                            <thead className="text-gray-500 bg-gray-50/50 dark:bg-white/5 uppercase text-xs">
+                            <thead className="text-gray-500 bg-gray-50/50 dark:bg-white/5 uppercase text-[10px] md:text-xs">
                                 <tr>
                                     <th className="px-3 py-3 md:px-6 md:py-4">Data</th>
                                     <th className="px-3 py-3 md:px-6 md:py-4">Peso</th>
+                                    <th className="px-3 py-3 md:px-6 md:py-4">M. Musc.</th>
                                     <th className="px-3 py-3 md:px-6 md:py-4">Gordura</th>
-                                    <th className="hidden md:table-cell px-6 py-4">Sonolência</th>
+                                    <th className="hidden lg:table-cell px-6 py-4">Energia</th>
+                                    <th className="hidden md:table-cell px-6 py-4">Sono</th>
+                                    <th className="hidden lg:table-cell px-6 py-4">Hidrat.</th>
                                     <th className="px-3 py-3 md:px-6 md:py-4">Medidas</th>
                                 </tr>
                             </thead>
@@ -462,14 +480,32 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                                             {entry.photos && entry.photos.length > 0 && <span className="material-symbols-outlined text-xs text-primary">photo</span>}
                                         </td>
                                         <td className="px-3 py-3 md:px-6 md:py-4 text-xs md:text-sm">{entry.weight} kg</td>
+                                        <td className="px-3 py-3 md:px-6 md:py-4 text-xs md:text-sm">{entry.muscleMass || '--'} kg</td>
                                         <td className="px-3 py-3 md:px-6 md:py-4 text-xs md:text-sm">{entry.bodyFat}%</td>
-                                        <td className="hidden md:table-cell px-6 py-4">
+                                        <td className="hidden lg:table-cell px-6 py-4 text-xs">
                                             <div className="flex items-center gap-1">
-                                                <span className="text-yellow-400">★</span> {entry.sleepQuality}
+                                                <span className="text-orange-400 font-bold">⚡</span> {entry.dailyEnergy || '--'}
                                             </div>
                                         </td>
-                                        <td className="px-3 py-3 md:px-6 md:py-4 text-gray-500 font-mono text-[10px] md:text-xs whitespace-nowrap">
-                                            {entry.measurements?.chest || '-'}/{entry.measurements?.waist || '-'}/{entry.measurements?.hips || '-'}
+                                        <td className="hidden md:table-cell px-6 py-4 text-xs">
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-yellow-400">★</span> {entry.sleepQuality || '--'}
+                                            </div>
+                                        </td>
+                                        <td className="hidden lg:table-cell px-6 py-4 text-xs">
+                                            <div className="flex items-center gap-1 text-blue-400">
+                                                <span className="material-symbols-outlined text-xs">water_drop</span>
+                                                {entry.hydration || '--'}L
+                                            </div>
+                                        </td>
+                                        <td className="px-3 py-3 md:px-6 md:py-4 text-gray-500 font-mono text-[9px] md:text-[10px] whitespace-nowrap overflow-hidden text-ellipsis max-w-[120px] md:max-w-none">
+                                            <div className="flex flex-wrap gap-x-2 gap-y-0.5">
+                                                <span>P:{entry.measurements?.chest || '-'}</span>
+                                                <span>C:{entry.measurements?.waist || '-'}</span>
+                                                <span>Q:{entry.measurements?.hips || '-'}</span>
+                                                <span className="hidden md:inline">B:{entry.measurements?.armRight || '-'}</span>
+                                                <span className="hidden md:inline">Cx:{entry.measurements?.thighRight || '-'}</span>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
