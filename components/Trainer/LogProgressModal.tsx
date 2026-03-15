@@ -76,7 +76,12 @@ export const LogProgressModal: React.FC<LogProgressModalProps> = ({ isOpen, onCl
                 notes: notes || undefined
             };
 
-            await onSave(data);
+            // Remove undefined fields to prevent Firestore errors
+            const cleanData = Object.fromEntries(
+                Object.entries(data).filter(([_, v]) => v !== undefined)
+            );
+
+            await onSave(cleanData);
             onClose();
             // Reset forms
             // setProgress('0');

@@ -96,18 +96,41 @@ export const studentService = {
     },
 
     addProgress: async (studentId: string, data: any) => {
-        const progressRef = collection(db, `students/${studentId}/progress`);
-        await addDoc(progressRef, {
-            ...data,
-            date: data.date ? Timestamp.fromDate(new Date(data.date)) : Timestamp.now()
-        });
+        // Remove undefined fields just in case
+        const cleanData = Object.fromEntries(
+            Object.entries(data).filter(([_, v]) => v !== undefined)
+        );
 
-        // Update main document with latest compatible fields
+        const progressData = {
+            ...cleanData,
+            date: data.date ? Timestamp.fromDate(new Date(data.date)) : Timestamp.now()
+        };
+
+        // 1. Save to students collection (Main trainer view)
+        const progressRef = collection(db, `students/${studentId}/progress`);
+        await addDoc(progressRef, progressData);
+
+        // 2. Also save to users collection if it's an app user
+        // This allows the student to see their own progress in their app
+        try {
+            const userDoc = await getDoc(doc(db, 'users', studentId));
+            if (userDoc.exists()) {
+                const userProgressRef = collection(db, `users/${studentId}/progress`);
+                await addDoc(userProgressRef, progressData);
+                
+                // Update weight in user profile if provided
+                if (data.weight) {
+                    await setDoc(doc(db, 'users', studentId), { weight: data.weight }, { merge: true });
+                }
+            }
+        } catch (e) {
+            console.warn("Could not sync progress to app user profile:", e);
+        }
+
+        // 3. Update main student document (Trainer's manual entry)
         const updates: any = { lastProgressUpdate: Timestamp.now() };
         if (data.weight) updates.weight = data.weight;
-        // if (typeof data.progress === 'number') updates.progress = data.progress; // Deprecated
-        if (data.notes) updates.trainerNotes = data.notes; // Save notes to profile
-        // Could update BMI or other calculated fields here if needed
+        if (data.notes) updates.trainerNotes = data.notes;
 
         await setDoc(doc(db, 'students', studentId), updates, { merge: true });
     },
