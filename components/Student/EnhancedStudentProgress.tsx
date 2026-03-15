@@ -96,21 +96,35 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
     const bmiStatus = getBMIStatus(currentBMI);
 
     // Prepare Chart Data (Time Ascending for Charts)
-    const chartData = [...progressEntries].reverse().map(e => ({
-        date: format(e.dateObj, 'dd/MM', { locale: ptBR }),
-        weight: e.weight,
-        bodyFat: e.bodyFat,
-        muscleMass: e.muscleMass,
-        // Upper Body
-        chest: e.measurements?.chest,
-        shoulders: e.measurements?.shoulders, // If available
-        arms: ((e.measurements?.armRight || 0) + (e.measurements?.armLeft || 0)) / 2 || undefined,
-        waist: e.measurements?.waist,
-        // Lower Body
-        hips: e.measurements?.hips,
-        thighs: ((e.measurements?.thighRight || 0) + (e.measurements?.thighLeft || 0)) / 2 || undefined,
-        calves: ((e.measurements?.calfRight || 0) + (e.measurements?.calfLeft || 0)) / 2 || undefined,
-    }));
+    const chartData = [...progressEntries].reverse().map(e => {
+        const m = e.measurements || {};
+        
+        // Helper for averaging symmetrical measurements or returning the single one available
+        const avg = (v1: any, v2: any) => {
+            const n1 = parseFloat(v1);
+            const n2 = parseFloat(v2);
+            if (!isNaN(n1) && !isNaN(n2)) return (n1 + n2) / 2;
+            if (!isNaN(n1)) return n1;
+            if (!isNaN(n2)) return n2;
+            return undefined;
+        };
+
+        return {
+            date: format(e.dateObj, 'dd/MM', { locale: ptBR }),
+            weight: e.weight,
+            bodyFat: e.bodyFat,
+            muscleMass: e.muscleMass,
+            // Upper Body
+            chest: m.chest || (e as any).chest,
+            shoulders: m.shoulders || (e as any).shoulders,
+            arms: avg(m.armRight || (e as any).armRight, m.armLeft || (e as any).armLeft),
+            waist: m.waist || (e as any).waist,
+            // Lower Body
+            hips: m.hips || (e as any).hips,
+            thighs: avg(m.thighRight || (e as any).thighRight, m.thighLeft || (e as any).thighLeft),
+            calves: avg(m.calfRight || (e as any).calfRight, m.calfLeft || (e as any).calfLeft),
+        };
+    });
 
     const StatCard = ({ title, value, unit, icon, color, subtitle, trend }: any) => (
         <motion.div
@@ -280,18 +294,23 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                                         />
                                         <Legend wrapperStyle={{ fontSize: '10px' }} />
 
-                                        {selectedMetric === 'upper' ? (
-                                            <>
-                                                <Line type="monotone" dataKey="chest" name="Peito" stroke="#ef4444" strokeWidth={2} dot={{ r: 3 }} />
-                                                <Line type="monotone" dataKey="waist" name="Cintura" stroke="#d946ef" strokeWidth={2} dot={{ r: 3 }} />
-                                                <Line type="monotone" dataKey="arms" name="Braço" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 3 }} />
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Line type="monotone" dataKey="hips" name="Quadril" stroke="#ec4899" strokeWidth={2} dot={{ r: 3 }} />
-                                                <Line type="monotone" dataKey="thighs" name="Coxa (méd)" stroke="#14b8a6" strokeWidth={2} dot={{ r: 3 }} />
-                                                <Line type="monotone" dataKey="calves" name="Panturrilha" stroke="#f97316" strokeWidth={2} dot={{ r: 3 }} />
-                                            </>
+                                        {selectedMetric === 'upper' && (
+                                            <Line type="monotone" dataKey="chest" name="Peito" stroke="#ef4444" strokeWidth={2} dot={{ r: 3 }} connectNulls />
+                                        )}
+                                        {selectedMetric === 'upper' && (
+                                            <Line type="monotone" dataKey="waist" name="Cintura" stroke="#d946ef" strokeWidth={2} dot={{ r: 3 }} connectNulls />
+                                        )}
+                                        {selectedMetric === 'upper' && (
+                                            <Line type="monotone" dataKey="arms" name="Braço" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 3 }} connectNulls />
+                                        )}
+                                        {selectedMetric === 'lower' && (
+                                            <Line type="monotone" dataKey="hips" name="Quadril" stroke="#ec4899" strokeWidth={2} dot={{ r: 3 }} connectNulls />
+                                        )}
+                                        {selectedMetric === 'lower' && (
+                                            <Line type="monotone" dataKey="thighs" name="Coxa (méd)" stroke="#14b8a6" strokeWidth={2} dot={{ r: 3 }} connectNulls />
+                                        )}
+                                        {selectedMetric === 'lower' && (
+                                            <Line type="monotone" dataKey="calves" name="Panturrilha" stroke="#f97316" strokeWidth={2} dot={{ r: 3 }} connectNulls />
                                         )}
                                     </LineChart>
                                 </ResponsiveContainer>
