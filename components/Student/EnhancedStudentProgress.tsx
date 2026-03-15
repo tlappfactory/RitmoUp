@@ -21,6 +21,8 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProgressEntry } from '../../types';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) => {
     const { user } = useAuth();
@@ -61,6 +63,82 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
         };
         loadData();
     }, [user]);
+
+    const handleExportPDF = () => {
+        if (!user || progressEntries.length === 0) return;
+
+        const doc = new jsPDF();
+        const timestamp = format(new Date(), 'dd/MM/yyyy HH:mm', { locale: ptBR });
+
+        // Add Logo / Title
+        doc.setFillColor(28, 28, 30); // Dark theme background
+        doc.rect(0, 0, 210, 40, 'F');
+        
+        doc.setTextColor(0, 255, 136); // Primary green
+        doc.setFontSize(24);
+        doc.setFont('helvetica', 'bold');
+        doc.text('RITMO UP', 15, 20);
+        
+        doc.setTextColor(200, 200, 200);
+        doc.setFontSize(10);
+        doc.text('Relatório de Evolução do Aluno', 15, 30);
+        
+        doc.setTextColor(255, 255, 255);
+        doc.text(`Data: ${timestamp}`, 195, 30, { align: 'right' });
+
+        // Student Info Section
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(14);
+        doc.text('Dados do Aluno', 15, 55);
+        
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Nome: ${user.name}`, 15, 65);
+        doc.text(`Email: ${user.email}`, 15, 72);
+        doc.text(`Altura: ${((user as any).height || '--')} m`, 15, 79);
+
+        // Current Stats Row
+        const latest = progressEntries[0] || {};
+        doc.setFont('helvetica', 'bold');
+        doc.text('Status Atual:', 130, 65);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Peso: ${latest.weight || '--'} kg`, 130, 72);
+        doc.text(`Gordura: ${latest.bodyFat || '--'}%`, 130, 79);
+        doc.text(`Massa M: ${latest.muscleMass || '--'} kg`, 130, 86);
+
+        // Prepare Table Data
+        const tableBody = progressEntries.map(entry => [
+            format(entry.dateObj, 'dd/MM/yyyy'),
+            `${entry.weight || '--'} kg`,
+            `${entry.bodyFat || '--'}%`,
+            `${entry.muscleMass || '--'} kg`,
+            `${entry.measurements?.chest || '--'}/${entry.measurements?.waist || '--'}/${entry.measurements?.hips || '--'}`,
+            entry.notes || '--'
+        ]);
+
+        // Generate Table
+        autoTable(doc, {
+            startY: 95,
+            head: [['Data', 'Peso', 'Gordura', 'Massa Musc.', 'Medidas (P/C/Q)', 'Observações']],
+            body: tableBody,
+            headStyles: { fillColor: [28, 28, 30], textColor: [0, 255, 136] },
+            alternateRowStyles: { fillColor: [245, 245, 245] },
+            margin: { top: 95 },
+            styles: { fontSize: 9 }
+        });
+
+        // Add Footer with page numbers
+        const pageCount = (doc as any).internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+            doc.setPage(i);
+            doc.setFontSize(8);
+            doc.setTextColor(150, 150, 150);
+            doc.text(`Página ${i} de ${pageCount} | ritmoup.web.app`, 105, 285, { align: 'center' });
+        }
+
+        doc.save(`Evolucao_RitmoUp_${user.name.replace(/\s+/g, '_')}_${format(new Date(), 'ddMMyy')}.pdf`);
+        showToast('PDF gerado com sucesso!', 'success');
+    };
 
     if (loading) {
         const loadingContent = (
@@ -354,7 +432,14 @@ export const EnhancedStudentProgress = ({ embedded }: { embedded?: boolean }) =>
                 >
                     <div className="p-6 border-b border-white/5 flex justify-between items-center">
                         <h3 className="font-bold text-lg">Histórico Detalhado</h3>
-                        <Button variant="outline" className="text-xs h-8">Exportar PDF</Button>
+                        <Button
+                            variant="outline"
+                            className="text-xs h-8 hover:bg-[#00ff88] hover:text-[#0f172a] hover:border-[#00ff88] transition-all"
+                            onClick={handleExportPDF}
+                        >
+                            <span className="material-symbols-outlined text-sm mr-1">download</span>
+                            Exportar PDF
+                        </Button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">

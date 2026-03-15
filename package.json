@@ -14,6 +14,8 @@
     "firebase": "^10.14.0",
     "firebase-admin": "^13.6.1",
     "framer-motion": "^11.11.11",
+    "jspdf": "^4.2.0",
+    "jspdf-autotable": "^5.0.7",
     "react": "^19.2.3",
     "react-body-highlighter": "^2.0.5",
     "react-dom": "^19.2.3",
